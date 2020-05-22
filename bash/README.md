@@ -64,4 +64,20 @@ You have following switches to define the arguments
 
 -try: This is an integer to define how many times you like to check an IP
 
--s: This is the filter that you can define to list the IPs based on download speed. The value is in KBPS (Kilo Bytes Per Se
+-s: This is the filter that you can define to list the IPs based on download speed. The value is in KBPS (Kilo Bytes Per Second). For example, if you set it to 50, it means that you will only list the IPs which have a download speed of more than 50 KB/S.
+
+-f: This is an optional argument which is a file address if you want to execute only some specific subnets. Then put your subnets in a file and pass the file as an argument to the command.
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -vpn <YES/NO>  -m <SUBNET/IP> -t <DOWN/UP/BOTH> -thr <int> -try <int> -c <config file> -s <int> [-f <Custome Subnet File> ]
+```
+
+#### in MacOS:
+
+-v: YES or NO, you are able to define for script to test with your vmess or not ( -v first character of vpn )
+
+-m: SUBNET or IP, Choose one of them for scanning subnets or single IPs
+
+-t: DOWN or UP or BOTH, Choos one of them for download and upload test
+
+-p: This is an integer number that defines the p
