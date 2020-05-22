@@ -80,4 +80,13 @@ You have following switches to define the arguments
 
 -t: DOWN or UP or BOTH, Choos one of them for download and upload test
 
--p: This is an integer number that defines the p
+-p: This is an integer number that defines the parallel threads count ( -p first character of parallelism factor )
+
+-r: This is an integer to define how many times you like to check an IP ( -r first character of retry )
+
+-s: This is the filter that you can define to list the IPs based on download speed. The value is in KBPS (Kilo Bytes Per Second). For example, if you set it to 50, it means that you will only list the IPs which have a download speed of more than 50 KB/S.
+
+-f: This is an optional argument which is a file address if you want to execute only some specific subnets. Then put your subnets in a file and pass the file as an argument to the command.
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -v <YES/NO>  -m <SUBNET/IP> -t <DOWN/UP/BOTH> -p <int> -r <int> -c <config file> -s <int> [-f <Custome Su
