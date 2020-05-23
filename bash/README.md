@@ -89,4 +89,41 @@ You have following switches to define the arguments
 -f: This is an optional argument which is a file address if you want to execute only some specific subnets. Then put your subnets in a file and pass the file as an argument to the command.
 
 ```shell
-[~/CFScanner/bash]>$ bash cfScanner.sh -v <YES/NO>  -m <SUBNET/IP> -t <DOWN/UP/BOTH> -p <int> -r <int> -c <config file> -s <int> [-f <Custome Su
+[~/CFScanner/bash]>$ bash cfScanner.sh -v <YES/NO>  -m <SUBNET/IP> -t <DOWN/UP/BOTH> -p <int> -r <int> -c <config file> -s <int> [-f <Custome Subnet File> ]
+```
+
+#### EXAMPLE: without custom subnet download
+
+##### in Linux:
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -vpn YES -m SUBNET -t DOWN -thr 8 -try 1 -c config.real -s 100
+```
+
+##### in MacOS:
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -v YES -m SUBNET -t DOWN -p 8 -r 1 -c config.real -s 100
+```
+
+#### EXAMPLE: without custom subnet upload
+
+##### in Linux:
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -vpn YES -m SUBNET -t UP -thr 8 -try 1 -c config.real -s 100
+```
+
+##### in MacOS:
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -v YES -m SUBNET -t UP -p 8 -r 1 -c config.real -s 100
+```
+
+
+#### EXAMPLE: without custom subnet upload and download
+
+##### in Linux:
+
+```shell
+[~/CFScanner/bash]>$ bash cfScanner.sh -vpn YES -m SUBNET -t BOTH -thr 8 -try 1 -c config.real
