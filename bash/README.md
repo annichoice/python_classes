@@ -210,3 +210,22 @@ Which the `custom.subnets` is like as follows. You can edit this file and add yo
 23.227.38.6 
 23.227.38.14 
 23.227.38.11 
+23.227.38.9 
+23.227.38.4 
+23.227.38.10 
+23.227.38.7 
+[~/CFScanner/bash]>$
+```
+
+### 5. Result
+
+It will generate a file in datetime format in the result directory.
+
+```shell
+[~/CFScanner]>$ ls result/
+20230120-203358-result.cf
+[~/CFScanner]>$
+```
+## Video Guide
+You can find a video guide for this script on [youtube](https://youtu.be/BKLRAHolhvM "youtube") and [youtube](https://youtu.be/4xJvWYdGuV8 "youtube").
+
