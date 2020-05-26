@@ -709,3 +709,96 @@ then
 	echo "Wrong value: $subnetOrIP Must be SUBNET or IP"
 	exit 2
 fi
+if [[ "$downloadOrUpload" != "DOWN" && "$downloadOrUpload" != "UP" && "$downloadOrUpload" != "BOTH" ]] 
+then
+	echo "Wrong value: $downloadOrUpload Must be DOWN or UP or BOTH"
+	exit 2
+fi
+
+if [[ "$subnetIPFile" != "NULL" ]]
+then
+	if ! [[ -f "$subnetIPFile" ]]
+	then
+		echo "file does not exists: $subnetIPFile"
+		exit 1
+	fi
+fi
+
+now=$(date +"%Y%m%d-%H%M%S")
+scriptDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+resultDir="$scriptDir/../result"
+resultFile="$resultDir/$now-result.cf"
+configDir="$scriptDir/../config"
+filesDir="$scriptDir/../files"
+
+uploadFile="$filesDir/upload_file"
+
+configId="NULL"
+configHost="NULL"
+configPort="NULL"
+configPath="NULL"
+configServerName="NULL"
+
+progressBar=""
+
+export GREEN='\033[0;32m'
+export BLUE='\033[0;34m'
+export RED='\033[0;31m'
+export ORANGE='\033[0;33m'
+export YELLOW='\033[1;33m'
+export NC='\033[0m'
+
+fncCreateDir "${resultDir}"
+fncCreateDir "${configDir}"
+echo "" > "$resultFile"
+
+echo "updating config.real"
+if [[ "$config" == "config.real"  ]]
+then
+	configRealUrlResult=$(curl -I -L -s "$clientConfigFile" | grep "^HTTP" | grep 200 | awk '{ print $2 }')
+	if [[ "$configRealUrlResult" == "200" ]]
+	then
+		curl -s "$clientConfigFile" -o "$scriptDir"/config.real
+		echo "config.real updated with $clientConfigFile"
+		echo ""
+		config="$scriptDir/config.real"
+		cat "$config"
+	else
+		echo ""
+		echo "config file is not available $clientConfigFile"
+		echo "use your own"
+		echo ""	
+		exit 1
+	fi
+else
+	echo ""
+	echo "using your own config $config"
+	cat "$config"
+	echo ""
+fi
+
+fileSize="$(( 2*speed*1024 ))"
+if [[ "$downloadOrUpload" == "DOWN" || "$downloadOrUpload" == "BOTH" ]]
+then
+	echo "You are testing download"
+fi
+if [[ "$downloadOrUpload" == "UP" || "$downloadOrUpload" == "BOTH" ]]
+then
+	echo "You are testing upload"
+	echo "making upload file by size $fileSize KB in $uploadFile"
+	ddSize="$(( 2*speed ))"
+	dd if=/dev/random of="$uploadFile" bs=1024 count="$ddSize" > /dev/null 2>&1
+fi
+
+fncValidateConfig "$config"
+
+if [[ "$subnetOrIP" == "SUBNET" ]]
+then
+	fncMainCFFindSubnet	"$threads" "$progressBar" "$resultFile" "$scriptDir" "$configId" "$configHost" "$configPort" "$configPath" "$configServerName" "$fileSize" "$osVersion" "$subnetIPFile" "$tryCount" "$downloadOrUpload" "$vpnOrNot"
+elif [[ "$subnetOrIP" == "IP" ]]
+then
+	fncMainCFFindIP	"$threads" "$progressBar" "$resultFile" "$scriptDir" "$configId" "$configHost" "$configPort" "$configPath" "$configServerName" "$fileSize" "$osVersion" "$subnetIPFile" "$tryCount" "$downloadOrUpload" "$vpnOrNot"
+else
+	echo "$subnetOrIP is not correct choose one SUBNET or IP"
+	exit 1
+fi
