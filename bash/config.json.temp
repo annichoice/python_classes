@@ -32,4 +32,12 @@
                 "Host": "HOSTHOST"
             },
             "path": "ENDPOINTENDPOINT"
-        
+        },
+        "tlsSettings": {
+            "serverName": "RANDOMHOST",
+            "allowInsecure": false
+        }
+    }
+	}],
+  "other": {}
+}
