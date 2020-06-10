@@ -71,3 +71,84 @@ func CreateTestConfig(configPath string, startprocessTimeout float64,
 	minUlSpeed float64, maxDlTime float64,
 	maxUlTime float64, frontingTimeout float64,
 	fronting bool, maxDlLatency float64,
+	maxUlLatency float64, nTries int, Vpn bool) ConfigStruct {
+
+	if configPath == "" {
+		log.Fatalf("Configuration file are not loaded please use the --config or -c flag to use the configuration file.")
+	}
+
+	jsonFile, err := os.Open(configPath)
+	if err != nil {
+		log.Printf("%vError occurred during opening the configuration file.\n%v",
+			utils.Colors.WARNING, utils.Colors.ENDC)
+		log.Fatal(err)
+	}
+	defer jsonFile.Close()
+
+	var jsonFileContent map[string]interface{}
+	byteValue, _ := io.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &jsonFileContent)
+
+	ConfigObject := ConfigStruct{
+		User_id:              jsonFileContent["id"].(string),
+		Ws_header_host:       jsonFileContent["host"].(string),
+		Address_port:         jsonFileContent["port"].(string),
+		Sni:                  jsonFileContent["serverName"].(string),
+		Ws_header_path:       "/" + strings.TrimLeft(jsonFileContent["path"].(string), "/"),
+		Startprocess_timeout: startprocessTimeout,
+		Do_upload_test:       doUploadTest,
+		Min_dl_speed:         minDlSpeed,
+		Min_ul_speed:         minUlSpeed,
+		Max_dl_time:          maxDlTime,
+		Max_ul_time:          maxUlTime,
+		Fronting_timeout:     frontingTimeout,
+		Do_fronting_test:     fronting,
+		Max_dl_latency:       maxDlLatency,
+		Max_ul_latency:       maxUlLatency,
+		N_tries:              nTries,
+		Vpn:                  Vpn,
+	}
+	PrintInformation(ConfigObject)
+	return ConfigObject
+}
+
+func CreateInterimResultsFile(interimResultsPath string, nTries int) error {
+	emptyFile, err := os.Create(interimResultsPath)
+	if err != nil {
+		return fmt.Errorf("failed to create interim results file: %w", err)
+	}
+	defer emptyFile.Close()
+
+	titles := []string{
+		"ip",
+		"avg_download_speed", "avg_upload_speed",
+		"avg_download_latency", "avg_upload_latency",
+		"avg_download_jitter", "avg_upload_jitter",
+	}
+
+	for i := 1; i <= nTries; i++ {
+		titles = append(titles, fmt.Sprintf("ip_%d", i))
+	}
+
+	for i := 1; i <= nTries; i++ {
+		titles = append(titles, fmt.Sprintf("download_speed_%d", i))
+	}
+
+	for i := 1; i <= nTries; i++ {
+		titles = append(titles, fmt.Sprintf("upload_speed_%d", i))
+	}
+
+	for i := 1; i <= nTries; i++ {
+		titles = append(titles, fmt.Sprintf("download_latency_%d", i))
+	}
+
+	for i := 1; i <= nTries; i++ {
+		titles = append(titles, fmt.Sprintf("upload_latency_%d", i))
+	}
+
+	if _, err := fmt.Fprintln(emptyFile, strings.Join(titles, ",")); err != nil {
+		return fmt.Errorf("failed to write titles to interim results file: %w", err)
+	}
+
+	return nil
+}
