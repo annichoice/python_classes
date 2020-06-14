@@ -56,4 +56,35 @@ func VersionStatement() string {
 func main() {
 	var threads int
 	var configPath string
-	v
+	var Vpn bool
+	var subnets string
+	var doUploadTest bool
+	var nTries int
+	var minDLSpeed float64
+	var minULSpeed float64
+	var maxDLTime float64
+	var maxULTime float64
+
+	var startProcessTimeout float64
+	var frontingTimeout float64
+	var maxDLLatency float64
+	var maxULLatency float64
+	var fronting bool
+	var v2raypath string
+
+	var bigIPList []string
+
+	rootCmd := &cobra.Command{
+		Use:   os.Args[0],
+		Short: codename,
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(VersionStatement())
+			if v2raypath != "" {
+				configuration.BINDIR = v2raypath
+			}
+			if !Vpn {
+				utils.CreateDir(configuration.CONFIGDIR)
+			}
+			utils.CreateDir(configuration.RESULTDIR)
+			if err := configuration.CreateInterimResultsFile(configuration.INTERIM_RESULTS_PATH, nTries); err != nil {
+				fmt.Printf("Error creating interim results file
