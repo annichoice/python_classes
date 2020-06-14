@@ -87,4 +87,40 @@ func main() {
 			}
 			utils.CreateDir(configuration.RESULTDIR)
 			if err := configuration.CreateInterimResultsFile(configuration.INTERIM_RESULTS_PATH, nTries); err != nil {
-				fmt.Printf("Error creating interim results file
+				fmt.Printf("Error creating interim results file: %v\n", err)
+			}
+			// number of threads for scanning
+			threadsCount := threads
+
+			// lists of ip for scanning proccess
+			var IPLIST []string
+
+			file, _ := utils.Exists(subnets)
+			if file {
+				if subnets != "" {
+					subnetFilePath := subnets
+					subnetFile, err := os.Open(subnetFilePath)
+					if err != nil {
+						log.Fatal(err)
+					}
+					defer subnetFile.Close()
+
+					scanner := bufio.NewScanner(subnetFile)
+					for scanner.Scan() {
+						IPLIST = append(IPLIST, strings.TrimSpace(scanner.Text()))
+					}
+					if err := scanner.Err(); err != nil {
+						log.Fatal(err)
+					}
+				}
+			} else {
+				// Parsing cidr input
+				if strings.Contains(subnets, "/") {
+					var subnetips []string
+					subnetips = append(subnetips, subnets)
+
+					ips := utils.IPParser(subnetips)
+
+					IPLIST = append(IPLIST, ips...)
+				} else {
+					// P
