@@ -123,4 +123,28 @@ func main() {
 
 					IPLIST = append(IPLIST, ips...)
 				} else {
-					// P
+					// Parsing ip input
+					var validateip string = utils.IPValidator(subnets)
+					IPLIST = append(IPLIST, validateip)
+				}
+			}
+
+			// Create Configuration file
+			testConfig := configuration.CreateTestConfig(configPath, startProcessTimeout, doUploadTest,
+				minDLSpeed, minULSpeed, maxDLTime, maxULTime,
+				frontingTimeout, fronting, maxDLLatency, maxULLatency,
+				nTries, Vpn)
+
+			// Total number of IPS
+			var nTotalIPs int
+
+			for _, ips := range IPLIST {
+				numIPs := utils.GetNumIPsInCIDR(ips)
+				nTotalIPs += numIPs
+			}
+
+			// Parsing and Validanting IPLISTS
+			bigIPList = utils.IPParser(IPLIST)
+
+			fmt.Println("Total Threads : ", utils.Colors.OKBLUE, threads, utils.Colors.ENDC)
+			fmt.Printf("Starting to scan %v%d%v IPS.\n", utils.Colors.OKGREEN, nTotalIPs, utils.Color
