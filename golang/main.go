@@ -147,4 +147,15 @@ func main() {
 			bigIPList = utils.IPParser(IPLIST)
 
 			fmt.Println("Total Threads : ", utils.Colors.OKBLUE, threads, utils.Colors.ENDC)
-			fmt.Printf("Starting to scan %v%d%v IPS.\n", utils.Colors.OKGREEN, nTotalIPs, utils.Color
+			fmt.Printf("Starting to scan %v%d%v IPS.\n", utils.Colors.OKGREEN, nTotalIPs, utils.Colors.ENDC)
+			fmt.Println("-------------------------------------")
+			// begin scanning process
+			scan.Scanner(&testConfig, bigIPList, threadsCount)
+			fmt.Println("Results Written in :", configuration.INTERIM_RESULTS_PATH)
+			fmt.Println("Sorted IPS Written in :", configuration.FINAL_RESULTS_PATH_SORTED)
+		},
+	}
+	rootCmd.PersistentFlags().IntVarP(&threads, "threads", "t", 1, "Number of threads to use for parallel scanning")
+	rootCmd.PersistentFlags().StringVarP(&configPath, "config", "c", "", "The path to the config file. For config file example, see https://github.com/MortezaBashsiz/CFScanner/blob/main/bash/ClientConfig.json")
+	rootCmd.PersistentFlags().BoolVar(&Vpn, "vpn", false, "If passed, test with creating vpn connections")
+	rootCmd.PersistentFlags().StringVarP(&subnets, "subnets", "s", "", "The file or subnet. e
