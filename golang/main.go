@@ -172,4 +172,12 @@ func main() {
 	rootCmd.PersistentFlags().Float64Var(&startProcessTimeout, "startprocess-timeout", 10, "")
 	rootCmd.PersistentFlags().StringVar(&v2raypath, "v2ray-path", "", "Custom V2Ray path for using v2ray binary on another directory.")
 
-	if len(os.Args
+	if len(os.Args) <= 1 {
+		rootCmd.Help()
+	}
+
+	err := rootCmd.Execute()
+
+	cobra.CheckErr(err)
+
+}
