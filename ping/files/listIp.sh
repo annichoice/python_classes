@@ -38,4 +38,16 @@ do
 	newIp=$(sort -n "$file" | head -n 1 | sort -n | awk -F ',' '{print $3}' | uniq)
 	oldLine=$(grep "$provider" /var/www/html/best.cf.iran)
 	oldIp=$(echo "$oldLine" | awk '{ print $2 }')
-	oldHour=$(echo "$oldLine" | awk '{ print
+	oldHour=$(echo "$oldLine" | awk '{ print $3 }')
+	if [[ "$newIp" != "$oldIp" ]]
+	then
+		result="$provider $newIp $now UTC"
+		sed -i "s/.*$provider.*/$result/" /var/www/html/best.cf.iran
+	else
+		if [[ "$oldHour" != "$thisHour" ]] || [[ "$oldHour" != "$lastHour"  ]]
+		then
+			result="$provider $newIp \t $now UTC"
+			sed -i "s/.*$provider.*/$result/" /var/www/html/best.cf.iran
+		fi
+	fi
+done
