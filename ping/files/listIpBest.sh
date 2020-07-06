@@ -39,4 +39,5 @@ function fncGetBests {
 # End of fncGetBests
 
 
-fncGetBests | awk '{ print length, $0 }' | sort -n -s -r | cut -d" " -f2- |
+fncGetBests | awk '{ print length, $0 }' | sort -n -s -r | cut -d" " -f2- | uniq 
+
