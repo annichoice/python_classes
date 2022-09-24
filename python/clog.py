@@ -160,3 +160,27 @@ class CLogger(object):
         self._logger.error(msg, {"prefix": prefix})
 
     def exception(self, e):
+        self._logger.exception(e)
+
+    def success(self, msg: str, prefix: str = None):
+        if not prefix:
+            prefix = self._prefix
+        msg = msg.replace("%", "%%")
+        self._logger.success(msg, {"prefix": prefix})
+
+    def debug(self, msg: str, prefix: str = None):
+        if not prefix:
+            prefix = self._prefix
+        msg = msg.replace("%", "%%")
+        self._logger.debug(msg, {"prefix": prefix})
+
+
+if __name__ == "__main__":
+    for _ in range(2):
+        log = CLogger("testinstance")
+
+        log.info("INFO MESSAGE")
+        log.warn("WARNING MESSAGE", "403")
+        log.error("ERROR MESSAGE", "TimeoutError")
+        log.success("SUCCESS MESSAGE", "jones@gmail.com")
+        log.debug("DEBUG MESSAGE", "a == b")
