@@ -38,4 +38,18 @@
       "streamSettings": {
         "network": "ws",
         "security": "tls",
-        "wsSe
+        "wsSettings": {
+          "headers": {
+            "Host": "HOSTHOST"
+          },
+          "path": "ENDPOINTENDPOINT"
+        },
+        "tlsSettings": {
+          "serverName": "RANDOMHOST",
+          "allowInsecure": false
+        }
+      }
+    }
+  ],
+  "other": {}
+}
