@@ -1,0 +1,136 @@
+
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using WinCFScan.Classes.IP;
+
+namespace WinCFScan.Classes.Config
+{
+    internal class ScanResults
+
+    {
+        public string? resultsFileName;
+        private ScanResults? loadedInstance;
+
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }        
+        public int totalFoundWorkingIPs { get; set; }
+        public int totalFoundWorkingIPsCurrentRange { get; set; }
+        public ResultItem fastestIP;
+        public List<ResultItem> workingIPs { get; set; }
+
+        private List<ResultItem> unFetchedWorkingIPs { get; set; }
+        private bool thereIsNewWorkingIPs = false;
+        private int totalUnsavedWorkingIPs = 0;
+
+
+        public ScanResults(string fileName) {
+            workingIPs = new List<ResultItem>();
+            unFetchedWorkingIPs = new List<ResultItem>();
+            resultsFileName = fileName;
+        }
+        
+        public ScanResults(List<ResultItem> workingIPs, string resultsFileName) {
+            this.workingIPs = workingIPs;
+            unFetchedWorkingIPs = new List<ResultItem>();
+            this.resultsFileName = resultsFileName;
+            totalFoundWorkingIPs= workingIPs.Count; 
+        }
+
+        public ScanResults() : this("") {}
+
+        // load app config
+        public bool load()
+        {
+            try
+            {
+                if (!File.Exists(resultsFileName))
+                {
+                    return false;
+                }
+
+                string jsonString = File.ReadAllText(resultsFileName);
+                loadedInstance = JsonSerializer.Deserialize<ScanResults>(jsonString)!;
+
+            }
+            catch (Exception ex)
+            {
+                Tools.logStep($"ScanResults.load() had exception: {ex.Message}");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool loadPlain()
+        {
+            try
+            {
+                if (!File.Exists(resultsFileName) || (new FileInfo(resultsFileName)).Length > 2 * 1_000_000)
+                {
+                    return false;
+                }
+
+                string plainString = File.ReadAllText(resultsFileName);
+                long delay = 0; string ip;
+                foreach(var line in plainString.Split("\n"))
+                {
+                    ip = line; delay = 0;
+                    if(line.Contains(" - "))
+                    {
+                        var splited = line.Split(" - ");
+                        long.TryParse(splited[0], out delay);
+                        ip = splited[1];
+                    }
+
+                    if(IPAddressExtensions.isValidIPAddress(ip))
+                    {
+                        this.addIPResult(delay, ip);
+                    }
+
+                }
+                loadedInstance = this;
+
+            }
+            catch (Exception ex)
+            {
+                Tools.logStep($"ScanResults.loadPlain() had exception: {ex.Message}");
+                return false;
+            }
+
+            return this.totalFoundWorkingIPs > 0;
+        }
+
+        public bool save(bool sortBeforeSave = true)
+        {
+            try
+            {
+                if (sortBeforeSave)
+                {
+                    workingIPs = this.workingIPs.OrderBy(x => x.delay).ToList<ResultItem>();
+                }
+                endDate = DateTime.Now;
+                JsonSerializerOptions options= new JsonSerializerOptions();
+                options.WriteIndented= true;
+                string jsonString = JsonSerializer.Serialize<ScanResults>(this, options);
+                File.WriteAllText(resultsFileName, jsonString);
+                totalUnsavedWorkingIPs = 0;
+            }
+            catch (Exception ex)
+            {
+                Tools.logStep($"ScanResults.save() had exception: {ex.Message}");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool savePlain(bool sortBeforeSave = true)
+        {
+            try
+            {
+                if (sortBeforeSave)

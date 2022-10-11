@@ -42,3 +42,13 @@ namespace WinCFScan.Classes.Config
 
         public bool isConfigValid()
         {
+            return frontDomain != null && scanDomain != null && clientConfigUrl != null;
+        }
+
+        public AppConfig? getLoadedInstance()
+        {
+            return loadedInstance;
+        }
+
+    }
+}
