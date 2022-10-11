@@ -134,3 +134,83 @@ namespace WinCFScan.Classes.Config
             try
             {
                 if (sortBeforeSave)
+                {
+                    workingIPs = this.workingIPs.OrderBy(x => x.delay).ToList<ResultItem>();
+                }
+
+                var plain = workingIPs.Select(x => $"{x.delay} - {x.ip}").ToArray<string>();
+                File.WriteAllText(resultsFileName, String.Join("\n", plain));
+            }
+            catch (Exception ex)
+            {
+                Tools.logStep($"ScanResults.savePlain() had exception: {ex.Message}");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        public ScanResults? getLoadedInstance()
+        {
+            return loadedInstance;
+        }
+
+        public void addIPResult(long delay, string ip )
+        {
+            ResultItem resultItem = new ResultItem(delay, ip);
+            workingIPs.Add(resultItem);
+            unFetchedWorkingIPs.Add(new ResultItem(delay, ip));
+            thereIsNewWorkingIPs = true;
+            totalFoundWorkingIPs++;
+            totalFoundWorkingIPsCurrentRange++;
+            totalUnsavedWorkingIPs++;
+            if (fastestIP == null || resultItem.delay < fastestIP.delay)
+            {
+                fastestIP = resultItem;
+            }
+        }
+
+        public void autoSave(int threshold = 10)
+        {
+            if(totalUnsavedWorkingIPs >= threshold) {
+                save(true);
+            }
+        }
+
+        public List<ResultItem>? fetchWorkingIPs()
+        {
+            if (thereIsNewWorkingIPs)
+            {
+                List<ResultItem> returnResult = unFetchedWorkingIPs;
+                unFetchedWorkingIPs = new List<ResultItem>();
+                thereIsNewWorkingIPs = false;
+                return returnResult;
+            }
+
+            return null;
+        }
+
+        internal void remove()
+        {
+            try
+            {
+                File.Delete(this.resultsFileName);
+            }
+            catch(Exception ex) { }
+        }
+    }
+
+
+    internal class ResultItem
+    {
+        public long delay { get; set; }
+        public string ip { get; set; }
+
+        public ResultItem(long delay = 0, string ip = "")
+        {
+            this.delay = delay;
+            this.ip = ip;
+        }
+    }
+}
