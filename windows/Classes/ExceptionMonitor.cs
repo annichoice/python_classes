@@ -23,4 +23,35 @@ namespace WinCFScan.Classes
             this.warningErrRate = warningErrRate;
         }
 
-        public void a
+        public void addScuccess()
+        {
+            this.successCount++;
+        }
+
+        public void addError(string errMessage = "")
+        { 
+            if (errMessage == "" || errMessage == null)
+                return;
+
+            this.errCount++;
+            
+            if (errCount < 5000) // dont keep too many errors
+                addErrMessage(errMessage.Trim());    
+        }
+
+        private void addErrMessage(string errMessage)
+        {
+
+            if (errorsList.ContainsKey(errMessage))
+                errorsList[errMessage]++;
+            else
+                errorsList.Add(errMessage, 1);
+        }
+
+        public float getErrorRate()
+        {
+            int total = errCount + successCount;
+
+            if (errCount != 0 && successCount == 0) {
+                return 100;
+ 
