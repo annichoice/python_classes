@@ -54,4 +54,35 @@ namespace WinCFScan.Classes
 
             if (errCount != 0 && successCount == 0) {
                 return 100;
- 
+            }
+
+            if (total == 0)
+                return 0;
+                
+            return ((float)errCount / total) * 100;
+        }
+
+        public int getTotalErros()
+        {
+            return errCount;
+        }
+
+        public bool isErrorRateAcceptable()
+        {
+            return getErrorRate() <= greenErrRate;
+        }
+
+        public bool hasException()
+        {
+            return errCount > 0;
+        }
+
+        // get top exceptions
+        public string getTopExceptions(int total = 4)
+        {
+            string topExp = "";
+            var sortedDict = from entry in errorsList orderby entry.Value descending select entry;
+            //var sorted = errorsList.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            int current = 0;
+            foreach(var exp  in s
