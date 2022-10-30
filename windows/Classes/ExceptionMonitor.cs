@@ -85,4 +85,33 @@ namespace WinCFScan.Classes
             //var sorted = errorsList.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             int current = 0;
-            foreach(var exp  in s
+            foreach(var exp  in sortedDict)
+            {
+                current++;
+                
+                topExp += $"{exp.Value:n0} => {exp.Key}" + Environment.NewLine;
+                
+                if (current == total)
+                    break;
+            }
+
+            return $"{Environment.NewLine}Top {monitorName}: ({getTotalErros()}){Environment.NewLine}{topExp}";
+        }
+
+        public void setControlColorStyles(ToolStripSplitButton control)
+        {
+            float errRate = getErrorRate();
+
+            // ok
+            if (errRate == 0)
+            {
+                control.ForeColor = SystemColors.ControlText;
+            }
+            // green
+            else if (errRate <= greenErrRate)
+            {
+                control.ForeColor = Color.DarkGreen;
+            }
+            // yellow warning
+            else if (errRate <= warningErrRate)
+ 
