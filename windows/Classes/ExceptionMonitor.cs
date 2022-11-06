@@ -114,4 +114,24 @@ namespace WinCFScan.Classes
             }
             // yellow warning
             else if (errRate <= warningErrRate)
- 
+            {
+                control.ForeColor = Color.Orange;
+            }
+            // red danger
+            else
+            {
+                control.ForeColor = Color.Red;
+            }
+
+            if(errRate > warningErrRate)
+            {
+                control.Font = new Font(control.Font, FontStyle.Bold);
+            }
+            else
+            {
+                control.Font = new Font(control.Font, FontStyle.Regular);
+            }
+        }
+
+    }
+}
