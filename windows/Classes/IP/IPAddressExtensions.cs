@@ -33,4 +33,18 @@ namespace WinCFScan.Classes.IP
          }
 
 
-        public static void getIPRangeInfo(string ip, int network, 
+        public static void getIPRangeInfo(string ip, int network, out uint start,  out uint end,  out uint total)
+        {
+            IPAddress netAddr = SubnetMask.CreateByNetBitLength(network);
+            byte[] mask = netAddr.GetAddressBytes();
+            byte[] iprev = IPAddress.Parse(ip).GetAddressBytes();
+            // Network id - network address
+            byte[] netid = BitConverter.GetBytes(BitConverter.ToUInt32(iprev, 0) & BitConverter.ToUInt32(mask, 0));
+            // Binary inverted netmask
+            byte[] inv_mask = mask.Select(r => (byte)~r).ToArray();
+            // Broadcast address
+            byte[] brCast = BitConverter.GetBytes(BitConverter.ToUInt32(netid, 0) ^ BitConverter.ToUInt32(inv_mask, 0));            
+
+            start = BitConverter.ToUInt32(netid.Reverse().ToArray(), 0) + 1;
+            end = BitConverter.ToUInt32(brCast.Reverse().ToArray(), 0);
+      
