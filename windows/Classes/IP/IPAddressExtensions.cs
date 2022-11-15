@@ -47,4 +47,23 @@ namespace WinCFScan.Classes.IP
 
             start = BitConverter.ToUInt32(netid.Reverse().ToArray(), 0) + 1;
             end = BitConverter.ToUInt32(brCast.Reverse().ToArray(), 0);
-      
+            total = end - start;
+        }
+
+        public static List<string> getIPRange(string ipAndNet)
+        {
+            string[] splitted = ipAndNet.Split('/');
+            return getIPRange(splitted[0], Int32.Parse(splitted[1]));
+        }
+
+
+        public static IPAddress GetBroadcastAddress(this IPAddress address, IPAddress subnetMask)
+        {
+            byte[] ipAdressBytes = address.GetAddressBytes();
+            byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+
+            if (ipAdressBytes.Length != subnetMaskBytes.Length)
+                throw new ArgumentException("Lengths of IP address and subnet mask do not match.");
+
+            byte[] broadcastAddress = new byte[ipAdressBytes.Length];
+            for (int i = 0; i < broadcastAdd
