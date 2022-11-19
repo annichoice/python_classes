@@ -84,4 +84,30 @@ namespace WinCFScan.Classes.IP
             byte[] broadcastAddress = new byte[ipAdressBytes.Length];
             for (int i = 0; i < broadcastAddress.Length; i++)
             {
-                broadcastAddress[i] = (byte)(ipAdressBytes
+                broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
+            }
+            return new IPAddress(broadcastAddress);
+        }
+
+        public static bool IsInSameSubnet(this IPAddress address2, IPAddress address, IPAddress subnetMask)
+        {
+            IPAddress network1 = address.GetNetworkAddress(subnetMask);
+            IPAddress network2 = address2.GetNetworkAddress(subnetMask);
+
+            return network1.Equals(network2);
+        }
+
+        public static bool isValidIPRange(string ipRange)
+        {
+            return ipRange != null && ipRange.Split(".").Count() == 4 && ipRange.Contains("/");
+        }
+
+        public static bool isValidIPAddress(string stringIP)
+        {
+
+            if (stringIP == null || stringIP.Split(".").Count() < 4)
+                return false;
+
+            try
+            {
+      
