@@ -110,4 +110,27 @@ namespace WinCFScan.Classes.IP
 
             try
             {
-      
+                IPAddress address;
+
+                if (IPAddress.TryParse(stringIP, out address))
+                {
+                    switch (address.AddressFamily)
+                    {
+                        case System.Net.Sockets.AddressFamily.InterNetwork:
+                            return true;
+                        case System.Net.Sockets.AddressFamily.InterNetworkV6:
+                            // we dont accept ipv6 for now
+                            return false;
+                        default:
+                            return false;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+    }
+}
