@@ -35,3 +35,25 @@ namespace WinCFScan.Classes.IP
                     int oneLength = netPartLength - i * 8;
                     string binaryDigit =
                         String.Empty.PadLeft(oneLength, '1').PadRight(8, '0');
+                    binaryMask[i] = Convert.ToByte(binaryDigit, 2);
+                }
+            }
+            return new IPAddress(binaryMask);
+        }
+
+        public static IPAddress CreateByNetBitLength(int netpartLength)
+        {
+            int hostPartLength = 32 - netpartLength;
+            return CreateByHostBitLength(hostPartLength);
+        }
+
+        public static IPAddress CreateByHostNumber(int numberOfHosts)
+        {
+            int maxNumber = numberOfHosts + 1;
+
+            string b = Convert.ToString(maxNumber, 2);
+
+            return CreateByHostBitLength(b.Length);
+        }
+    }
+}
