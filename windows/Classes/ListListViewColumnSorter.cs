@@ -47,4 +47,20 @@ namespace WinCFScan.Classes
         /// </summary>
         /// <param name="x">First object to be compared</param>
         /// <param name="y">Second object to be compared</param>
-        /// <returns>The
+        /// <returns>The result of the comparison. "0" if equal, negative if 'x' is less than 'y' and positive if 'x' is greater than 'y'</returns>
+        public int Compare(object x, object y)
+        {
+            int compareResult;
+            uint numericX , numericY;
+            ListViewItem listviewX, listviewY;
+
+            // Cast the objects to be compared to ListViewItem objects
+            listviewX = (ListViewItem)x;
+            listviewY = (ListViewItem)y;
+
+            var xValue = listviewX.SubItems[ColumnToSort].Text.Replace(",", "").Replace(".", "");
+            var yValue = listviewY.SubItems[ColumnToSort].Text.Replace(",", "").Replace(".", "");
+
+            // if values are numeric then cast them to Int to be able to compare numerical
+            bool isXNumeric = uint.TryParse(xValue, out numericX);
+            bool isYNumeric = uint.TryParse(yValu
