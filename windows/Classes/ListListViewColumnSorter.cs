@@ -63,4 +63,25 @@ namespace WinCFScan.Classes
 
             // if values are numeric then cast them to Int to be able to compare numerical
             bool isXNumeric = uint.TryParse(xValue, out numericX);
-            bool isYNumeric = uint.TryParse(yValu
+            bool isYNumeric = uint.TryParse(yValue, out numericY);
+            
+            if (isXNumeric && isYNumeric)
+            {
+                // Compare the two items
+                compareResult = ObjectCompare.Compare(numericX, numericY);
+            }
+            else
+            {
+                // Compare the two items
+                compareResult = ObjectCompare.Compare(xValue, yValue);
+            }
+
+            // Calculate correct return value based on object comparison
+            if (OrderOfSort == SortOrder.Ascending)
+            {
+                // Ascending sort is selected, return normal result of compare operation
+                return compareResult;
+            }
+            else if (OrderOfSort == SortOrder.Descending)
+            {
+                // Descending sort is selected, return neg
