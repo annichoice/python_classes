@@ -116,4 +116,13 @@ namespace WinCFScan.Classes
         {
             set
             {
-               
+                OrderOfSort = value;
+            }
+            get
+            {
+                return OrderOfSort;
+            }
+        }
+
+    }
+}
