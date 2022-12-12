@@ -84,4 +84,36 @@ namespace WinCFScan.Classes
             }
             else if (OrderOfSort == SortOrder.Descending)
             {
-                // Descending sort is selected, return neg
+                // Descending sort is selected, return negative result of compare operation
+                return (-compareResult);
+            }
+            else
+            {
+                // Return '0' to indicate they are equal
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
+        /// </summary>
+        public int SortColumn
+        {
+            set
+            {
+                ColumnToSort = value;
+            }
+            get
+            {
+                return ColumnToSort;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the order of sorting to apply (for example, 'Ascending' or 'Descending').
+        /// </summary>
+        public SortOrder Order
+        {
+            set
+            {
+               
