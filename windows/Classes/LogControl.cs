@@ -20,4 +20,27 @@ namespace WinCFScan.Classes
                 {
                     Log(msg, w);
                 }
-                
+                if (DEBUG)
+                    Console.WriteLine(msg);
+            }
+            catch (Exception e)
+            {
+                //Handle
+            }
+        }
+
+        static private void Log(string msg, TextWriter w)
+        {
+            try
+            {
+                //w.Write(Environment.NewLine);
+                w.Write(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                w.WriteLine(" {0}", msg);
+            }
+            catch (Exception e)
+            {
+                //Handle
+            }
+        }
+    }
+}
