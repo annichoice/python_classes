@@ -243,3 +243,76 @@ namespace WinCFScan.Classes
                     skipCurrentIPRange();
                 }
             }
+        }
+
+        protected void resetProgressInfo()
+        {
+            progressInfo = new ScanProgressInfo();
+        }
+
+        public List<string> fetchLogMessages()
+        {
+            List<string> curLogMessages = logMessages;
+            logMessages = new();
+            return curLogMessages;
+        }
+
+
+        public bool loadCFIPList(string fileName = "cf.local.iplist")
+        {
+            CFIPList ipList = new CFIPList(fileName);
+            if (ipList.isIPListValid())
+            {
+                cfIPRangeList = ipList.getIPList();
+                ipListLoader = ipList;
+                return true;
+            }
+
+            progressInfo.lastErrMessage = "Invalid couldflare IP list";
+            progressInfo.hasError = true;
+            return false;
+        }
+
+
+        internal void stop()
+        {
+            try
+            {
+                if (progressInfo.isScanRunning)
+                {
+                    progressInfo.stopRequested = true;
+                    cts.Cancel();
+                }
+            }
+            catch (Exception)
+            {}
+        }
+
+        public void skipCurrentIPRange() {
+            progressInfo.skipCurrentIPRange = true;
+            cts.Cancel();
+        }
+
+        internal void setSkipAfterFoundIPs(bool enabled)
+        {
+            this.skipAfterFoundIPsEnabled = enabled;
+        }
+
+        internal void setSkipAfterAWhile(bool enabled)
+        {
+            this.skipAfterAWhileEnabled = enabled;
+        }
+
+        internal void setSkipAfterScanPercent(bool enabled, int minPercent)
+        {
+            this.skipAfterPercentDone = enabled;
+            this.skipMinPercent = minPercent;
+        }
+    }
+
+    enum ScanType
+    {
+        SCAN_CLOUDFLARE_IPS,
+        SCAN_IN_PERV_RESULTS
+    }
+}
