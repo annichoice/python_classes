@@ -20,4 +20,18 @@ namespace WinCFScan.Classes
         internal int totalIPRanges;
         internal int currentIPRangesNumber = 0;
         internal int currentIPRangeTotalIPs = 0;
-        internal int totalC
+        internal int totalCheckedIPInCurIPRange = 0;
+        internal int totalCheckedIP = 0;
+        internal ExceptionMonitor downloadExceptions = new("Download Errors");
+        internal ExceptionMonitor frontingExceptions = new("Fronting Errors");
+        internal int curentWorkingThreads = 0;
+
+        public float getCurrentRangePercentIsDone()
+        {
+            if (currentIPRangeTotalIPs == 0)
+                return 0;
+
+            return ((float)totalCheckedIPInCurIPRange / currentIPRangeTotalIPs) * 100;
+        }
+    }
+}
