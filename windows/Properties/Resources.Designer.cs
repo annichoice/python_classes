@@ -76,4 +76,18 @@ namespace WinCFScan.Properties {
         internal static System.Drawing.Bitmap buyyel28h_2 {
             get {
                 object obj = ResourceManager.GetObject("buyyel28h-2", resourceCulture);
-              
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap github_mark24 {
+            get {
+                object obj = ResourceManager.GetObject("github-mark24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+    }
+}
