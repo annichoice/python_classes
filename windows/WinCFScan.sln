@@ -17,4 +17,15 @@ Global
 		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Debug|x86.ActiveCfg = Release|x86
 		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Debug|x86.Build.0 = Release|x86
-		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Release|Any
+		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Release|x86.ActiveCfg = Release|x86
+		{4CADB7B9-1CF1-4136-A910-7BCCDD0BE09D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {57AE3044-4D7F-4818-8F61-5D3B2F5F947F}
+	EndGlobalSection
+EndGlobal
