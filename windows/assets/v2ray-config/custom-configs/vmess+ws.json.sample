@@ -1,7 +1,6 @@
-
 {
   "inbounds": [{
-    "port": PORTPORT,
+    "port": "PORTPORT", 
     "listen": "127.0.0.1",
     "tag": "socks-inbound",
     "protocol": "socks",
@@ -17,12 +16,12 @@
   }],
   "outbounds": [
     {
-		"protocol": "vmess",
+    "protocol": "vmess",
     "settings": {
       "vnext": [{
         "address": "IP.IP.IP.IP", 
-        "port": CFPORTCFPORT,
-        "users": [{"id": "IDID" }]
+        "port": 443,
+        "users": [{"id": "248ecb72-89cf-5be7-923f-b790fca681c5" }]
       }]
     },
 		"streamSettings": {
@@ -30,19 +29,9 @@
         "security": "tls",
         "wsSettings": {
             "headers": {
-                "Host": "HOSTHOST"
+                "Host": "scherehtzhel01.sudoer.net"
             },
-            "path": "ENDPOINTENDPOINT"
+            "path": "api01"
         },
         "tlsSettings": {
-            "serverName": "RANDOMHOST",
-            "allowInsecure": false,
-			"fingerprint": "chrome",
-			"alpn": [
-			"http/1.1"
-			]
-        }
-    }
-	}],
-  "other": {}
-}
+    
