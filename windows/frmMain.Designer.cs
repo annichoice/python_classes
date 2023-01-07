@@ -608,3 +608,543 @@
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(852, 294);
+            tabControl1.TabIndex = 9;
+            // 
+            // tabPageCFRanges
+            // 
+            tabPageCFRanges.BackColor = Color.Transparent;
+            tabPageCFRanges.Controls.Add(listCFIPList);
+            tabPageCFRanges.Controls.Add(btnLoadIPRanges);
+            tabPageCFRanges.Controls.Add(lblCFIPListStatus);
+            tabPageCFRanges.Controls.Add(btnSelectNoneIPRanges);
+            tabPageCFRanges.Controls.Add(btnSelectAllIPRanges);
+            tabPageCFRanges.Location = new Point(4, 24);
+            tabPageCFRanges.Name = "tabPageCFRanges";
+            tabPageCFRanges.Padding = new Padding(3, 3, 3, 3);
+            tabPageCFRanges.Size = new Size(844, 266);
+            tabPageCFRanges.TabIndex = 1;
+            tabPageCFRanges.Text = "Cloudflare IP ranges";
+            // 
+            // listCFIPList
+            // 
+            listCFIPList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listCFIPList.CheckBoxes = true;
+            listCFIPList.Columns.AddRange(new ColumnHeader[] { headIPRange, headTotalIPs });
+            listCFIPList.Location = new Point(0, 35);
+            listCFIPList.Name = "listCFIPList";
+            listCFIPList.Size = new Size(842, 223);
+            listCFIPList.TabIndex = 0;
+            listCFIPList.UseCompatibleStateImageBehavior = false;
+            listCFIPList.View = View.Details;
+            listCFIPList.ColumnClick += listCFIPList_ColumnClick;
+            listCFIPList.ItemChecked += listCFIPList_ItemChecked;
+            // 
+            // headIPRange
+            // 
+            headIPRange.Text = "IP Range";
+            headIPRange.Width = 140;
+            // 
+            // headTotalIPs
+            // 
+            headTotalIPs.Text = "Total IPs";
+            headTotalIPs.Width = 90;
+            // 
+            // lblCFIPListStatus
+            // 
+            lblCFIPListStatus.AutoSize = true;
+            lblCFIPListStatus.Location = new Point(6, 12);
+            lblCFIPListStatus.Name = "lblCFIPListStatus";
+            lblCFIPListStatus.Size = new Size(110, 15);
+            lblCFIPListStatus.TabIndex = 3;
+            lblCFIPListStatus.Text = "Loading IP ranges...";
+            // 
+            // btnSelectNoneIPRanges
+            // 
+            btnSelectNoneIPRanges.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSelectNoneIPRanges.Location = new Point(653, 9);
+            btnSelectNoneIPRanges.Name = "btnSelectNoneIPRanges";
+            btnSelectNoneIPRanges.Size = new Size(88, 23);
+            btnSelectNoneIPRanges.TabIndex = 2;
+            btnSelectNoneIPRanges.Text = "Select None";
+            btnSelectNoneIPRanges.UseVisualStyleBackColor = true;
+            btnSelectNoneIPRanges.Click += btnSelectNoneIPRanges_Click;
+            // 
+            // btnSelectAllIPRanges
+            // 
+            btnSelectAllIPRanges.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSelectAllIPRanges.Location = new Point(750, 9);
+            btnSelectAllIPRanges.Name = "btnSelectAllIPRanges";
+            btnSelectAllIPRanges.Size = new Size(88, 23);
+            btnSelectAllIPRanges.TabIndex = 1;
+            btnSelectAllIPRanges.Text = "Select All";
+            btnSelectAllIPRanges.UseVisualStyleBackColor = true;
+            btnSelectAllIPRanges.Click += btnSelectAllIPRanges_Click;
+            // 
+            // tabPageResults
+            // 
+            tabPageResults.Controls.Add(btnStopAvgTest);
+            tabPageResults.Controls.Add(lblPrevListTotalIPs);
+            tabPageResults.Controls.Add(lblPrevResults);
+            tabPageResults.Controls.Add(btnResultsActions);
+            tabPageResults.Controls.Add(comboResults);
+            tabPageResults.Controls.Add(btnScanInPrevResults);
+            tabPageResults.Controls.Add(listResults);
+            tabPageResults.Location = new Point(4, 24);
+            tabPageResults.Name = "tabPageResults";
+            tabPageResults.Padding = new Padding(3, 3, 3, 3);
+            tabPageResults.Size = new Size(844, 267);
+            tabPageResults.TabIndex = 0;
+            tabPageResults.Text = "Scan Results";
+            tabPageResults.UseVisualStyleBackColor = true;
+            // 
+            // btnStopAvgTest
+            // 
+            btnStopAvgTest.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnStopAvgTest.Location = new Point(661, 10);
+            btnStopAvgTest.Name = "btnStopAvgTest";
+            btnStopAvgTest.Size = new Size(115, 24);
+            btnStopAvgTest.TabIndex = 10;
+            btnStopAvgTest.Text = "Stop Avg test";
+            btnStopAvgTest.UseVisualStyleBackColor = true;
+            btnStopAvgTest.Click += btnStopAvgTest_Click;
+            // 
+            // lblPrevListTotalIPs
+            // 
+            lblPrevListTotalIPs.Location = new Point(366, 14);
+            lblPrevListTotalIPs.Name = "lblPrevListTotalIPs";
+            lblPrevListTotalIPs.Size = new Size(53, 19);
+            lblPrevListTotalIPs.TabIndex = 9;
+            lblPrevListTotalIPs.Text = "0 IPs";
+            lblPrevListTotalIPs.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // lblPrevResults
+            // 
+            lblPrevResults.AutoSize = true;
+            lblPrevResults.Location = new Point(6, 13);
+            lblPrevResults.Name = "lblPrevResults";
+            lblPrevResults.Size = new Size(119, 15);
+            lblPrevResults.TabIndex = 7;
+            lblPrevResults.Text = "Previous scan results:";
+            // 
+            // btnResultsActions
+            // 
+            btnResultsActions.Location = new Point(540, 10);
+            btnResultsActions.Name = "btnResultsActions";
+            btnResultsActions.Size = new Size(115, 24);
+            btnResultsActions.TabIndex = 8;
+            btnResultsActions.Text = "Actions";
+            btnResultsActions.UseVisualStyleBackColor = true;
+            btnResultsActions.Click += btnResultsActions_Click;
+            btnResultsActions.MouseClick += btnResultsActions_MouseClick;
+            // 
+            // mnuMain
+            // 
+            mnuMain.ImageScalingSize = new Size(20, 20);
+            mnuMain.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem, helpToolStripMenuItem });
+            mnuMain.Location = new Point(0, 0);
+            mnuMain.Name = "mnuMain";
+            mnuMain.Size = new Size(878, 24);
+            mnuMain.TabIndex = 8;
+            mnuMain.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadCustomIPRangesToolStripMenuItem, toolStripMenuItem1, importScanResultsToolStripMenuItem, exportScanResultsToolStripMenuItem, toolStripMenuItem2, exitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // loadCustomIPRangesToolStripMenuItem
+            // 
+            loadCustomIPRangesToolStripMenuItem.Name = "loadCustomIPRangesToolStripMenuItem";
+            loadCustomIPRangesToolStripMenuItem.Size = new Size(194, 22);
+            loadCustomIPRangesToolStripMenuItem.Text = "Load custom IP ranges";
+            loadCustomIPRangesToolStripMenuItem.Click += loadCustomIPRangesToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(191, 6);
+            // 
+            // importScanResultsToolStripMenuItem
+            // 
+            importScanResultsToolStripMenuItem.Name = "importScanResultsToolStripMenuItem";
+            importScanResultsToolStripMenuItem.Size = new Size(194, 22);
+            importScanResultsToolStripMenuItem.Text = "Import scan results";
+            importScanResultsToolStripMenuItem.Click += importScanResultsToolStripMenuItem_Click;
+            // 
+            // exportScanResultsToolStripMenuItem
+            // 
+            exportScanResultsToolStripMenuItem.Name = "exportScanResultsToolStripMenuItem";
+            exportScanResultsToolStripMenuItem.Size = new Size(194, 22);
+            exportScanResultsToolStripMenuItem.Text = "Export scan results";
+            exportScanResultsToolStripMenuItem.Click += exportScanResultsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(191, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(194, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // toolsToolStripMenuItem
+            // 
+            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { scanASingleIPAddressToolStripMenuItem, addCustomV2rayConfigToolStripMenuItem, downloadTimeoutToolStripMenuItem, toolStripSeparator5, checkForUpdateToolStripMenuItem, updateClientConfigCloudflareSubnetsToolStripMenuItem });
+            toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            toolsToolStripMenuItem.Size = new Size(46, 20);
+            toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // scanASingleIPAddressToolStripMenuItem
+            // 
+            scanASingleIPAddressToolStripMenuItem.Name = "scanASingleIPAddressToolStripMenuItem";
+            scanASingleIPAddressToolStripMenuItem.Size = new Size(297, 22);
+            scanASingleIPAddressToolStripMenuItem.Text = "Test a single IP address";
+            scanASingleIPAddressToolStripMenuItem.Click += scanASingleIPAddressToolStripMenuItem_Click;
+            // 
+            // addCustomV2rayConfigToolStripMenuItem
+            // 
+            addCustomV2rayConfigToolStripMenuItem.Name = "addCustomV2rayConfigToolStripMenuItem";
+            addCustomV2rayConfigToolStripMenuItem.Size = new Size(297, 22);
+            addCustomV2rayConfigToolStripMenuItem.Text = "Add custom v2ray config...";
+            addCustomV2rayConfigToolStripMenuItem.Click += addCustomV2rayConfigToolStripMenuItem_Click;
+            // 
+            // downloadTimeoutToolStripMenuItem
+            // 
+            downloadTimeoutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { comboDownloadTimeout });
+            downloadTimeoutToolStripMenuItem.Name = "downloadTimeoutToolStripMenuItem";
+            downloadTimeoutToolStripMenuItem.Size = new Size(297, 22);
+            downloadTimeoutToolStripMenuItem.Text = "Download timeout";
+            // 
+            // comboDownloadTimeout
+            // 
+            comboDownloadTimeout.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboDownloadTimeout.FlatStyle = FlatStyle.System;
+            comboDownloadTimeout.Items.AddRange(new object[] { "2 Seconds", "4 Seconds", "6 Seconds", "10 Seconds" });
+            comboDownloadTimeout.Name = "comboDownloadTimeout";
+            comboDownloadTimeout.Size = new Size(121, 23);
+            comboDownloadTimeout.SelectedIndexChanged += comboDownloadTimeout_SelectedIndexChanged;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(294, 6);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            checkForUpdateToolStripMenuItem.Size = new Size(297, 22);
+            checkForUpdateToolStripMenuItem.Text = "Check for app updates";
+            checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+            // 
+            // updateClientConfigCloudflareSubnetsToolStripMenuItem
+            // 
+            updateClientConfigCloudflareSubnetsToolStripMenuItem.Name = "updateClientConfigCloudflareSubnetsToolStripMenuItem";
+            updateClientConfigCloudflareSubnetsToolStripMenuItem.Size = new Size(297, 22);
+            updateClientConfigCloudflareSubnetsToolStripMenuItem.Text = "Update ClientConfig && Cloudflare subnets";
+            updateClientConfigCloudflareSubnetsToolStripMenuItem.Click += updateClientConfigCloudflareSubnetsToolStripMenuItem_Click;
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mnuHelpCustomConfig, mnuHelpOurGitHub });
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(44, 20);
+            helpToolStripMenuItem.Text = "Help";
+            // 
+            // mnuHelpCustomConfig
+            // 
+            mnuHelpCustomConfig.Name = "mnuHelpCustomConfig";
+            mnuHelpCustomConfig.Size = new Size(252, 22);
+            mnuHelpCustomConfig.Text = "How to add custom v2ray configs";
+            mnuHelpCustomConfig.Click += mnuHelpCustomConfig_Click;
+            // 
+            // mnuHelpOurGitHub
+            // 
+            mnuHelpOurGitHub.Name = "mnuHelpOurGitHub";
+            mnuHelpOurGitHub.Size = new Size(252, 22);
+            mnuHelpOurGitHub.Text = "Visit our GitHub";
+            mnuHelpOurGitHub.Click += mnuHelpOurGitHub_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.RestoreDirectory = true;
+            // 
+            // saveFileDialog1
+            // 
+            saveFileDialog1.DefaultExt = "txt";
+            saveFileDialog1.RestoreDirectory = true;
+            // 
+            // mnuResultsActions
+            // 
+            mnuResultsActions.ImageScalingSize = new Size(20, 20);
+            mnuResultsActions.Items.AddRange(new ToolStripItem[] { exportResultsToolStripMenuItem, importResultsToolStripMenuItem, deleteResultsToolStripMenuItem });
+            mnuResultsActions.Name = "mnuResultsActions";
+            mnuResultsActions.Size = new Size(148, 70);
+            mnuResultsActions.Text = "Actions";
+            // 
+            // exportResultsToolStripMenuItem
+            // 
+            exportResultsToolStripMenuItem.Name = "exportResultsToolStripMenuItem";
+            exportResultsToolStripMenuItem.Size = new Size(147, 22);
+            exportResultsToolStripMenuItem.Text = "Export results";
+            exportResultsToolStripMenuItem.Click += exportResultsToolStripMenuItem_Click;
+            // 
+            // importResultsToolStripMenuItem
+            // 
+            importResultsToolStripMenuItem.Name = "importResultsToolStripMenuItem";
+            importResultsToolStripMenuItem.Size = new Size(147, 22);
+            importResultsToolStripMenuItem.Text = "Import results";
+            importResultsToolStripMenuItem.Click += importResultsToolStripMenuItem_Click;
+            // 
+            // deleteResultsToolStripMenuItem
+            // 
+            deleteResultsToolStripMenuItem.Name = "deleteResultsToolStripMenuItem";
+            deleteResultsToolStripMenuItem.Size = new Size(147, 22);
+            deleteResultsToolStripMenuItem.Text = "Delete results";
+            deleteResultsToolStripMenuItem.Click += deleteResultsToolStripMenuItem_Click;
+            // 
+            // toolStripBottom
+            // 
+            toolStripBottom.Dock = DockStyle.Bottom;
+            toolStripBottom.ImageScalingSize = new Size(20, 20);
+            toolStripBottom.Items.AddRange(new ToolStripItem[] { btnFrontingErrors, toolStripSeparator3, btnDownloadErrors, toolStripSeparator4, lblAutoSkipStatus, seperatorAutoSkip, lblRunningWorkers, linkBuyMeCoffee, linkGithub });
+            toolStripBottom.Location = new Point(0, 628);
+            toolStripBottom.Name = "toolStripBottom";
+            toolStripBottom.Size = new Size(878, 33);
+            toolStripBottom.TabIndex = 9;
+            toolStripBottom.Text = "toolStrip2";
+            // 
+            // btnFrontingErrors
+            // 
+            btnFrontingErrors.BackColor = SystemColors.Control;
+            btnFrontingErrors.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFrontingErrors.DropDownItems.AddRange(new ToolStripItem[] { mnuCopyFrontingErrors });
+            btnFrontingErrors.ForeColor = SystemColors.ControlText;
+            btnFrontingErrors.Image = (Image)resources.GetObject("btnFrontingErrors.Image");
+            btnFrontingErrors.ImageTransparentColor = Color.Magenta;
+            btnFrontingErrors.Name = "btnFrontingErrors";
+            btnFrontingErrors.Size = new Size(123, 30);
+            btnFrontingErrors.Text = "Fronting errors: 0%";
+            btnFrontingErrors.ButtonClick += btnFrontingErrors_ButtonClick;
+            // 
+            // mnuCopyFrontingErrors
+            // 
+            mnuCopyFrontingErrors.Name = "mnuCopyFrontingErrors";
+            mnuCopyFrontingErrors.Size = new Size(181, 22);
+            mnuCopyFrontingErrors.Text = "Copy fronting errors";
+            mnuCopyFrontingErrors.Click += mnuCopyFrontingErrors_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 33);
+            // 
+            // btnDownloadErrors
+            // 
+            btnDownloadErrors.BackColor = SystemColors.Control;
+            btnDownloadErrors.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDownloadErrors.DropDownItems.AddRange(new ToolStripItem[] { mnuCopyDownloadErrors });
+            btnDownloadErrors.ForeColor = SystemColors.ControlText;
+            btnDownloadErrors.Image = (Image)resources.GetObject("btnDownloadErrors.Image");
+            btnDownloadErrors.ImageTransparentColor = Color.Magenta;
+            btnDownloadErrors.Name = "btnDownloadErrors";
+            btnDownloadErrors.Size = new Size(132, 30);
+            btnDownloadErrors.Text = "Download errors: 0%";
+            btnDownloadErrors.ButtonClick += btnDownloadErrors_ButtonClick;
+            // 
+            // mnuCopyDownloadErrors
+            // 
+            mnuCopyDownloadErrors.Name = "mnuCopyDownloadErrors";
+            mnuCopyDownloadErrors.Size = new Size(191, 22);
+            mnuCopyDownloadErrors.Text = "Copy download errors";
+            mnuCopyDownloadErrors.Click += mnuCopyDownloadErrors_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 33);
+            // 
+            // lblAutoSkipStatus
+            // 
+            lblAutoSkipStatus.ForeColor = SystemColors.GrayText;
+            lblAutoSkipStatus.Name = "lblAutoSkipStatus";
+            lblAutoSkipStatus.Size = new Size(58, 30);
+            lblAutoSkipStatus.Text = "Auto Skip";
+            lblAutoSkipStatus.ToolTipText = "Auto Skip is enabled";
+            lblAutoSkipStatus.Visible = false;
+            // 
+            // seperatorAutoSkip
+            // 
+            seperatorAutoSkip.Name = "seperatorAutoSkip";
+            seperatorAutoSkip.Size = new Size(6, 33);
+            seperatorAutoSkip.Visible = false;
+            // 
+            // lblRunningWorkers
+            // 
+            lblRunningWorkers.ForeColor = SystemColors.GrayText;
+            lblRunningWorkers.Name = "lblRunningWorkers";
+            lblRunningWorkers.Size = new Size(60, 30);
+            lblRunningWorkers.Text = "Threads: 0";
+            lblRunningWorkers.ToolTipText = "Running scanner threads";
+            // 
+            // linkBuyMeCoffee
+            // 
+            linkBuyMeCoffee.Alignment = ToolStripItemAlignment.Right;
+            linkBuyMeCoffee.AutoSize = false;
+            linkBuyMeCoffee.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            linkBuyMeCoffee.Image = Properties.Resources.buyyel28h_2;
+            linkBuyMeCoffee.ImageScaling = ToolStripItemImageScaling.None;
+            linkBuyMeCoffee.IsLink = true;
+            linkBuyMeCoffee.Margin = new Padding(0, 1, 13, 4);
+            linkBuyMeCoffee.Name = "linkBuyMeCoffee";
+            linkBuyMeCoffee.Size = new Size(114, 28);
+            linkBuyMeCoffee.Text = "toolStripLabel4";
+            linkBuyMeCoffee.ToolTipText = "Buy me a coffee";
+            linkBuyMeCoffee.Click += linkBuyMeCoffee_Click;
+            // 
+            // frmMain
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(878, 661);
+            Controls.Add(toolStripBottom);
+            Controls.Add(mnuMain);
+            Controls.Add(splitContainer1);
+            Controls.Add(groupBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(1200, 896);
+            MinimumSize = new Size(894, 690);
+            Name = "frmMain";
+            Text = "Cloudflare Scan";
+            FormClosing += frmMain_FormClosing;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            mnuListView.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPageCFRanges.ResumeLayout(false);
+            tabPageCFRanges.PerformLayout();
+            tabPageResults.ResumeLayout(false);
+            tabPageResults.PerformLayout();
+            mnuMain.ResumeLayout(false);
+            mnuMain.PerformLayout();
+            mnuResultsActions.ResumeLayout(false);
+            toolStripBottom.ResumeLayout(false);
+            toolStripBottom.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+        private TextBox txtLog;
+        private System.Windows.Forms.Timer timerBase;
+        private Label lblLastIPRange;
+        private System.Windows.Forms.Timer timerProgress;
+        private Label labelLastIPChecked;
+        private GroupBox groupBox1;
+        private ToolTip toolTip1;
+        private ListView listResults;
+        private ColumnHeader hdrDelay;
+        private ColumnHeader hdrIP;
+        private ComboBox comboResults;
+        private Label lblTotalWorkingIPs;
+        private Button btnScanInPrevResults;
+        private SplitContainer splitContainer1;
+        private Label lblPrevResults;
+        private Button btnResultsActions;
+        private TextBox txtFastestIP;
+        private Button btnCopyFastestIP;
+        private ContextMenuStrip mnuListView;
+        private ToolStripMenuItem mnuListViewCopyIP;
+        private ToolStripMenuItem mnuListViewTestThisIPAddress;
+        private TabControl tabControl1;
+        private TabPage tabPageResults;
+        private TabPage tabPageCFRanges;
+        private ListView listCFIPList;
+        private ColumnHeader headIPRange;
+        private ColumnHeader headTotalIPs;
+        private Button btnSelectNoneIPRanges;
+        private Button btnSelectAllIPRanges;
+        private Label lblCFIPListStatus;
+        private Label lblPrevListTotalIPs;
+        private ToolStripLabel linkGithub;
+        private MenuStrip mnuMain;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem toolsToolStripMenuItem;
+        private ToolStripMenuItem scanASingleIPAddressToolStripMenuItem;
+        private Label lblDebugMode;
+        private Button btnLoadIPRanges;
+        private OpenFileDialog openFileDialog1;
+        private ToolStripMenuItem loadCustomIPRangesToolStripMenuItem;
+        private SaveFileDialog saveFileDialog1;
+        private ToolStripMenuItem exportScanResultsToolStripMenuItem;
+        private ContextMenuStrip mnuResultsActions;
+        private ToolStripMenuItem exportResultsToolStripMenuItem;
+        private ToolStripMenuItem importResultsToolStripMenuItem;
+        private ToolStripMenuItem deleteResultsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem importScanResultsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem2;
+        private ToolStrip toolStrip1;
+        private ToolStripComboBox comboConcurrent;
+        private ToolStripProgressBar prgOveral;
+        private ToolStripLabel lblConcurrent;
+        private ToolStripComboBox comboTargetSpeed;
+        private ToolStripLabel lblTargetSpeed;
+        private ToolStripProgressBar prgCurRange;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripSplitButton btnStart;
+        private ToolStripMenuItem mnuPauseScan;
+        private ToolStripSplitButton btnSkipCurRange;
+        private ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private ToolStripComboBox comboConfigs;
+        private ToolStripLabel toolStripLabel3;
+        private ToolStripMenuItem addCustomV2rayConfigToolStripMenuItem;
+        private ToolStrip toolStripBottom;
+        private ToolStripSplitButton btnFrontingErrors;
+        private ToolStripSplitButton btnDownloadErrors;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem mnuCopyDownloadErrors;
+        private ToolStripMenuItem mnuCopyFrontingErrors;
+        private ToolStripMenuItem downloadTimeoutToolStripMenuItem;
+        private ToolStripComboBox comboDownloadTimeout;
+        private ToolStripMenuItem mnuSkipAfterFoundIPs;
+        private ToolStripMenuItem mnuSkipAfterAWhile;
+        private ToolStripMenuItem mnuSkipAfter10Percent;
+        private ToolStripMenuItem mnuSkipAfter30Percent;
+        private ToolStripMenuItem mnuSkipAfter50Percent;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem mnuHelpCustomConfig;
+        private ToolStripMenuItem mnuHelpOurGitHub;
+        private ToolStripLabel lblAutoSkipStatus;
+        private ToolStripSeparator toolStripSeparator4;
+        private Label lblTempInfo;
+        private ToolStripLabel lblRunningWorkers;
+        private ToolStripLabel linkBuyMeCoffee;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem updateClientConfigCloudflareSubnetsToolStripMenuItem;
+        private ToolStripSeparator seperatorAutoSkip;
+        private ToolStripMenuItem mnuTesIP2Times;
+        private ToolStripMenuItem mnuTesIP3Times;
+        private ToolStripMenuItem mnuTesIP5Times;
+        private ToolStripSeparator toolStripSeparator6;
+        private Button btnStopAvgTest;
+        private ToolStripMenuItem mnuTestThisIP;
+    }
+}
