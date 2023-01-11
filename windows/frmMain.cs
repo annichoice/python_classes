@@ -72,4 +72,27 @@ namespace WinCFScan
 
             appUpdateChecker = new AppUpdateChecker();
 
-            // is debug mode enable? this line should be at bottom l
+            // is debug mode enable? this line should be at bottom line
+            checkEnableDebugMode();
+        }
+
+        private void loadCustomConfigsComboList(string selectedConfigFileName = "")
+        {
+            if (!configManager.isConfigValid() || configManager.customConfigs.customConfigInfos.Count == 0)
+            {
+                comboConfigs.SelectedIndex = 0;
+                return;
+            }
+
+            comboConfigs.Items.Clear();
+            comboConfigs.Items.Add(new CustomConfigInfo("Default", "Default"));
+
+            foreach (var customConfig in configManager.customConfigs.customConfigInfos)
+            {
+                comboConfigs.Items.Add(customConfig);
+            }
+
+            int selectedIndex = 0;
+            if (selectedConfigFileName != "")
+            {
+                selectedIndex = comboConfigs.FindStrin
