@@ -50,4 +50,26 @@ namespace WinCFScan
 
                 if (configManager.errorMessage != "")
                 {
-                    addTextL
+                    addTextLog(configManager.errorMessage);
+                }
+
+                isAppCongigValid = false;
+            }
+
+            scanEngine = new ScanEngine();
+
+            loadLastResultsComboList();
+            comboTargetSpeed.SelectedIndex = 2; // 100kb/s
+            comboDownloadTimeout.SelectedIndex = 0; //2 seconds timeout
+            loadCustomConfigsComboList();
+
+            appVersion = AppUpdateChecker.getCurrentVersion();
+
+            DateTime buildDate = new DateTime(2000, 1, 1)
+                                    .AddDays(appVersion.Build).AddSeconds(appVersion.Revision * 2);
+            string displayableVersion = $" - {appVersion}";
+            this.Text += displayableVersion;
+
+            appUpdateChecker = new AppUpdateChecker();
+
+            // is debug mode enable? this line should be at bottom l
