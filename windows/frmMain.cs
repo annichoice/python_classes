@@ -95,4 +95,28 @@ namespace WinCFScan
             int selectedIndex = 0;
             if (selectedConfigFileName != "")
             {
-                selectedIndex = comboConfigs.FindStrin
+                selectedIndex = comboConfigs.FindStringExact(selectedConfigFileName);
+            }
+
+            comboConfigs.SelectedIndex = selectedIndex;
+        }
+
+        public CustomConfigInfo getSelectedV2rayConfig()
+        {
+            if (comboConfigs.SelectedItem is not null and not (object)"Default")
+            {
+                return (CustomConfigInfo)comboConfigs.SelectedItem;
+            }
+
+            // return defualt config if nothing is selected
+            return new CustomConfigInfo("Default", "Default");
+        }
+
+        private void checkEnableDebugMode()
+        {
+            if (configManager.enableDebug)
+            {
+                comboConcurrent.Text = "1";
+                comboConcurrent.Enabled = false;
+                lblDebugMode.Visible = true;
+              
