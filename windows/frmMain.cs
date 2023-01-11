@@ -26,4 +26,28 @@ namespace WinCFScan
         private bool isUpdatinglistCFIP;
         private bool isAppCongigValid = true;
         private bool isManualTesting = false; // is testing ips 
-        private ListViewC
+        private ListViewColumnSorter listResultsColumnSorter;
+        private ListViewColumnSorter listCFIPsColumnSorter;
+        private Version appVersion;
+        private AppUpdateChecker appUpdateChecker;
+        private bool stopAvgTetingIsRequested;
+
+        public frmMain()
+        {
+            InitializeComponent();
+
+            listResultsColumnSorter = new ListViewColumnSorter();
+            this.listResults.ListViewItemSorter = listResultsColumnSorter;
+
+            listCFIPsColumnSorter = new ListViewColumnSorter();
+            this.listCFIPList.ListViewItemSorter = listCFIPsColumnSorter;
+
+            // load configs
+            configManager = new();
+            if (!configManager.isConfigValid())
+            {
+                addTextLog("App config is not valid! we can not continue.");
+
+                if (configManager.errorMessage != "")
+                {
+                    addTextL
