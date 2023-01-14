@@ -160,4 +160,34 @@ namespace WinCFScan
 
         }
 
-        private void startStopScan(bool inPrevResu
+        private void startStopScan(bool inPrevResult = false)
+        {
+            if (!isAppCongigValid)
+            {
+                showCanNotContinueMessage();
+                return;
+            }
+
+            if (isManualTesting)
+            {
+                addTextLog($"Can not start while app is scanning.");
+                return;
+            }
+
+            if (isScanRunning())
+            {
+                // stop scan
+                btnStart.Enabled = false;
+                waitUntilScannerStoped();
+                updateUIControlls(false);
+            }
+            else
+            {   // start scan
+                if (inPrevResult)
+                {
+                    if (currentScanResults.Count == 0)
+                    {
+                        addTextLog("Current result list is empty!");
+                        return;
+                    }
+      
