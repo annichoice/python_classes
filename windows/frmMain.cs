@@ -128,4 +128,36 @@ namespace WinCFScan
             }
         }
 
-        // add text log to log textb
+        // add text log to log textbox
+        delegate void SetTextCallback(string log);
+        public void addTextLog(string log)
+        {
+            try
+            {
+                if (this.txtLog.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(addTextLog);
+                    this.Invoke(d, new object[] { log });
+                }
+                else
+                {
+                    txtLog.AppendText(log + Environment.NewLine);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+
+        private void btnScanInPrevResults_Click(object sender, EventArgs e)
+        {
+            startStopScan(true);
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startStopScan(bool inPrevResu
