@@ -190,4 +190,19 @@ namespace WinCFScan
                         addTextLog("Current result list is empty!");
                         return;
                     }
-      
+                    addTextLog($"Start scanning {currentScanResults.Count} IPs in previous results...");
+                }
+                else
+                {
+                    // set cf ip list to scan engine
+                    string[] ipRanges = getCheckedCFIPList();
+                    if (ipRanges.Length == 0)
+                    {
+                        tabControl1.SelectTab(0);
+                        MessageBox.Show($"No Cloudflare IP ranges are selected. Please select some IP ranges.",
+                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    currentScanResults = new();
+                    scanEngine.setCFIPRangeList(ipRanges);
+                    addTextLog($"Start scanning {
