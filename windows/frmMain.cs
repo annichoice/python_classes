@@ -205,4 +205,16 @@ namespace WinCFScan
                     }
                     currentScanResults = new();
                     scanEngine.setCFIPRangeList(ipRanges);
-                    addTextLog($"Start scanning {
+                    addTextLog($"Start scanning {ipRanges.Length} Cloudflare IP ranges...");
+                }
+
+                updateUIControlls(true);
+                scanEngine.workingIPsFromPrevScan = inPrevResult ? currentScanResults : null;
+                scanEngine.targetSpeed = getTargetSpeed(); // set target speed
+                scanEngine.scanConfig = getSelectedV2rayConfig(); // set scan config
+                scanEngine.downloadTimeout = getDownloadTimeout(); // set download timeout
+                string scanConfigContent = scanEngine.scanConfig.content;
+
+                Tools.logStep($"Starting scan engine with target speed: {scanEngine.targetSpeed.getTargetSpeed()}, dl timeout: {scanEngine.downloadTimeout}, " +
+                    $"config: '{scanEngine.scanConfig}' => " +
+                    $"{scanConfigContent.Substring(0, Math.Min(150, scanConfigConten
