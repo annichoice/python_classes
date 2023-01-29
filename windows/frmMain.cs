@@ -217,4 +217,23 @@ namespace WinCFScan
 
                 Tools.logStep($"Starting scan engine with target speed: {scanEngine.targetSpeed.getTargetSpeed()}, dl timeout: {scanEngine.downloadTimeout}, " +
                     $"config: '{scanEngine.scanConfig}' => " +
-                    $"{scanConfigContent.Substring(0, Math.Min(150, scanConfigConten
+                    $"{scanConfigContent.Substring(0, Math.Min(150, scanConfigContent.Length))}...");
+
+                var scanType = inPrevResult ? ScanType.SCAN_IN_PERV_RESULTS : ScanType.SCAN_CLOUDFLARE_IPS;
+
+                // start scan job in new thread
+                Task.Factory.StartNew(() => scanEngine.start(scanType))
+                    .ContinueWith(done =>
+                    {
+                        scanFinshed = true;
+                        this.currentScanResults = scanEngine.progressInfo.scanResults.workingIPs;
+                        addTextLog($"{scanEngine.progressInfo.totalCheckedIP:n0} IPs tested and found {scanEngine.progressInfo.scanResults.totalFoundWorkingIPs:n0} working IPs.");
+                    });
+
+                tabControl1.SelectTab(1);
+            }
+        }
+
+        private int getDownloadTimeout()
+        {
+            string timeoutStr = comboDownloadTimeout.Selecte
