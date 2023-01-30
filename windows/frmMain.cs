@@ -236,4 +236,27 @@ namespace WinCFScan
 
         private int getDownloadTimeout()
         {
-            string timeoutStr = comboDownloadTimeout.Selecte
+            string timeoutStr = comboDownloadTimeout.SelectedItem.ToString().Replace(" Seconds", "");
+
+            if (int.TryParse(timeoutStr, out int downloadTimeout))
+                return downloadTimeout;
+            else
+                return 2;
+        }
+
+        private void updateUIControlls(bool isStarting)
+        {
+            if (isStarting)
+            {
+                loadLastResultsComboList();
+                listResults.Items.Clear();
+                btnStart.Text = "Stop Scan";
+                btnScanInPrevResults.Enabled = false;
+                btnResultsActions.Enabled = false;
+                comboConcurrent.Enabled = false;
+                comboTargetSpeed.Enabled = false;
+                comboConfigs.Enabled = false;
+                timerProgress.Enabled = true;
+                //btnSkipCurRange.Enabled = true;
+                comboResults.Enabled = false;
+         
