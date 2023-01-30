@@ -259,4 +259,25 @@ namespace WinCFScan
                 timerProgress.Enabled = true;
                 //btnSkipCurRange.Enabled = true;
                 comboResults.Enabled = false;
-         
+                tabPageCFRanges.Enabled = false;
+            }
+            else
+            {   // is stopping
+                btnStart.Text = "Start Scan";
+                btnStart.Enabled = true;
+                btnScanInPrevResults.Enabled = true;
+                btnResultsActions.Enabled = true;
+                timerProgress.Enabled = false;
+                lblRunningWorkers.Text = $"Threads: 0";
+
+                //btnSkipCurRange.Enabled = false;
+                comboResults.Enabled = true;
+                if (!configManager.enableDebug)
+                {
+                    comboConcurrent.Enabled = true;
+                }
+                comboTargetSpeed.Enabled = true;
+                comboConfigs.Enabled = true;
+                tabPageCFRanges.Enabled = true;
+
+                // sav
