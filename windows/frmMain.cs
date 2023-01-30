@@ -280,4 +280,24 @@ namespace WinCFScan
                 comboConfigs.Enabled = true;
                 tabPageCFRanges.Enabled = true;
 
-                // sav
+                // save result file if found working IPs
+                var scanResults = scanEngine.progressInfo.scanResults;
+                if (scanResults.totalFoundWorkingIPs != 0)
+                {
+                    // save results into disk
+                    if (!scanResults.save())
+                    {
+                        addTextLog($"Could not save scan result into the file: {scanResults.resultsFileName}");
+                    }
+                }
+                else
+                {
+                    // delete result file if there is no woriking ip
+                    scanResults.remove();
+                }
+
+                loadLastResultsComboList();
+
+                // sort results list
+                listResultsColumnSorter.Order = SortOrder.Ascending;
+                listResultsColumnSorter.SortCo
