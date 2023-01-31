@@ -328,4 +328,17 @@ namespace WinCFScan
             var pInf = scanEngine.progressInfo;
             if (isScanRunning() || forceUpdate)
             {
-                lblLastIPRange.Text = $"Current IP range: {pInf.currentIPRang
+                lblLastIPRange.Text = $"Current IP range: {pInf.currentIPRange} ({pInf.currentIPRangesNumber:n0}/{pInf.totalIPRanges:n0})";
+                labelLastIPChecked.Text = $"Last checked IP:  {pInf.lastCheckedIP} ({pInf.totalCheckedIPInCurIPRange:n0}/{pInf.currentIPRangeTotalIPs:n0})";
+                lblTotalWorkingIPs.Text = $"Total working IPs found:  {pInf.scanResults.totalFoundWorkingIPs:n0}";
+                if (pInf.scanResults.fastestIP != null)
+                {
+                    txtFastestIP.Text = $"{pInf.scanResults.fastestIP.ip}  -  {pInf.scanResults.fastestIP.delay:n0} ms";
+                }
+
+                lblRunningWorkers.Text = $"Threads: {pInf.curentWorkingThreads}";
+
+                prgOveral.Maximum = pInf.totalIPRanges;
+                prgOveral.Value = pInf.currentIPRangesNumber;
+
+                prgCurRange.Maximum = pInf.curr
