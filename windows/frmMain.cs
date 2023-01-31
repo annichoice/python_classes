@@ -300,4 +300,32 @@ namespace WinCFScan
 
                 // sort results list
                 listResultsColumnSorter.Order = SortOrder.Ascending;
-                listResultsColumnSorter.SortCo
+                listResultsColumnSorter.SortColumn = 0;
+                listResults.Sort();
+            }
+        }
+
+        private void timerBase_Tick(object sender, EventArgs e)
+        {
+            oneTimeChecks();
+            if (scanFinshed)
+            {
+                scanFinshed = false;
+                updateConrtolsProgress(true);
+                updateUIControlls(false);
+            }
+
+            btnStopAvgTest.Visible = isManualTesting;
+        }
+
+        private void timerProgress_Tick(object sender, EventArgs e)
+        {
+            updateConrtolsProgress();
+        }
+
+        private void updateConrtolsProgress(bool forceUpdate = false)
+        {
+            var pInf = scanEngine.progressInfo;
+            if (isScanRunning() || forceUpdate)
+            {
+                lblLastIPRange.Text = $"Current IP range: {pInf.currentIPRang
