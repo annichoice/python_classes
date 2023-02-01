@@ -401,4 +401,24 @@ namespace WinCFScan
         private string? getSelectedScanResultFilename()
         {
             string? filename = comboResults.SelectedItem.ToString();
-            if (fi
+            if (filename != null && File.Exists(filename) && filename != "Current Scan Results")
+            {
+                return filename;
+            }
+
+            return null;
+        }
+
+        // load previous results into list view
+        private void fillResultsListView(string resultsFileName, bool plainFile = false)
+        {
+            var results = new ScanResults(resultsFileName);
+            bool isLoaded = plainFile ? results.loadPlain() : results.load();
+            if (isLoaded)
+            {
+                listResults.Items.Clear();
+                var loadedResults = results.getLoadedInstance();
+                this.currentScanResults = loadedResults.workingIPs;
+                addResulItemsToListView(currentScanResults);
+
+                addTextLog($"'{resultsFileName}' loaded with {loadedResults.totalFoundWorkingIPs:n0} working IPs, sca
