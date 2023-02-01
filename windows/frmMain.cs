@@ -355,4 +355,27 @@ namespace WinCFScan
                 pInf.downloadExceptions.setControlColorStyles(btnDownloadErrors);
                 btnFrontingErrors.Text = $"Fronting Errors : {pInf.frontingExceptions.getErrorRate():f1}%";
                 btnDownloadErrors.Text = $"Download Errors : {pInf.downloadExceptions.getErrorRate():f1}%";
-                btnFrontingErrors.ToolTipText = $"Total errors: {pInf.down
+                btnFrontingErrors.ToolTipText = $"Total errors: {pInf.downloadExceptions.getTotalErros()}";
+                btnDownloadErrors.ToolTipText = $"Total errors: {pInf.frontingExceptions.getTotalErros()}";
+            }
+        }
+
+        private void fetchScanEngineLogMessages()
+        {
+            var messages = scanEngine.fetchLogMessages();
+            foreach (var message in messages)
+            {
+                addTextLog(message);
+            }
+        }
+
+        // fetch new woriking ips and add to the list view while scanning
+        private void fetchWorkingIPResults()
+        {
+            List<ResultItem> scanResults = scanEngine.progressInfo.scanResults.fetchWorkingIPs();
+            addResulItemsToListView(scanResults);
+        }
+
+        private void loadLastResultsComboList()
+        {
+            comboResults.Items.Cl
