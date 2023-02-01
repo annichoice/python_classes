@@ -378,4 +378,27 @@ namespace WinCFScan
 
         private void loadLastResultsComboList()
         {
-            comboResults.Items.Cl
+            comboResults.Items.Clear();
+            comboResults.Items.Add("Current Scan Results");
+            var resultFiles = Directory.GetFiles("results/", "*.json");
+            foreach (var resultFile in resultFiles)
+            {
+                comboResults.Items.Add(resultFile);
+            }
+            comboResults.SelectedIndex = 0;
+        }
+
+        private void comboResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string? filename = getSelectedScanResultFilename();
+            if (filename != null)
+            {
+                fillResultsListView(filename);
+            }
+        }
+
+        // get filename of selected scan result
+        private string? getSelectedScanResultFilename()
+        {
+            string? filename = comboResults.SelectedItem.ToString();
+            if (fi
