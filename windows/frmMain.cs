@@ -341,4 +341,18 @@ namespace WinCFScan
                 prgOveral.Maximum = pInf.totalIPRanges;
                 prgOveral.Value = pInf.currentIPRangesNumber;
 
-                prgCurRange.Maximum = pInf.curr
+                prgCurRange.Maximum = pInf.currentIPRangeTotalIPs;
+                prgCurRange.Value = pInf.totalCheckedIPInCurIPRange;
+                prgCurRange.ToolTipText = $"Current IP range progress: {pInf.getCurrentRangePercentIsDone():f1}%";
+
+                fetchWorkingIPResults();
+                pInf.scanResults.autoSave();
+
+                fetchScanEngineLogMessages();
+
+                // exception rate
+                pInf.frontingExceptions.setControlColorStyles(btnFrontingErrors);
+                pInf.downloadExceptions.setControlColorStyles(btnDownloadErrors);
+                btnFrontingErrors.Text = $"Fronting Errors : {pInf.frontingExceptions.getErrorRate():f1}%";
+                btnDownloadErrors.Text = $"Download Errors : {pInf.downloadExceptions.getErrorRate():f1}%";
+                btnFrontingErrors.ToolTipText = $"Total errors: {pInf.down
