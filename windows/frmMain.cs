@@ -421,4 +421,25 @@ namespace WinCFScan
                 this.currentScanResults = loadedResults.workingIPs;
                 addResulItemsToListView(currentScanResults);
 
-                addTextLog($"'{resultsFileName}' loaded with {loadedResults.totalFoundWorkingIPs:n0} working IPs, sca
+                addTextLog($"'{resultsFileName}' loaded with {loadedResults.totalFoundWorkingIPs:n0} working IPs, scan time: {loadedResults.startDate}");
+            }
+            else
+            {
+                addTextLog($"Could not load scan result file from disk: '{resultsFileName}'");
+            }
+        }
+
+        private void addResulItemsToListView(List<ResultItem>? workingIPs)
+        {
+            if (workingIPs != null)
+            {
+                int index = 0;
+                listResults.BeginUpdate();
+                listResults.ListViewItemSorter = null;
+                foreach (ResultItem resultItem in workingIPs)
+                {
+                    index++;
+                    listResults.Items.Add(new ListViewItem(new string[] { resultItem.delay.ToString(), resultItem.ip }));
+                }
+                listResults.EndUpdate();
+                listResults.ListViewItemSorter = listResults
