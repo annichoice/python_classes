@@ -442,4 +442,30 @@ namespace WinCFScan
                     listResults.Items.Add(new ListViewItem(new string[] { resultItem.delay.ToString(), resultItem.ip }));
                 }
                 listResults.EndUpdate();
-                listResults.ListViewItemSorter = listResults
+                listResults.ListViewItemSorter = listResultsColumnSorter;
+                lblPrevListTotalIPs.Text = $"{listResults.Items.Count:n0} IPs";
+            }
+        }
+
+
+        private void oneTimeChecks()
+        {
+            if (!oneTimeChecked && isAppCongigValid)
+            {
+
+                // check if client config file is exists and update
+                if (configManager.getClientConfig() != null && configManager.getClientConfig().isClientConfigOld())
+                {
+                    remoteUpdateClientConfig();
+                }
+
+                //Load cf ip ranges
+                loadCFIPListView();
+
+                // check fronting domain
+                Task.Factory.StartNew(() =>
+                {
+                    var checker = new CheckIPWorking();
+                    if (!checker.checkFronting(false, 5))
+                    {
+                  
