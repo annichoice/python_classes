@@ -468,4 +468,25 @@ namespace WinCFScan
                     var checker = new CheckIPWorking();
                     if (!checker.checkFronting(false, 5))
                     {
-                  
+                        addTextLog($"Fronting domain is not accessible! you might need to get new fronting url from our github or check your internet connection.");
+                    }
+                });
+
+                // check for updates
+                if (appUpdateChecker.shouldCheck())
+                {
+                    checkForUpdate();
+                }
+
+                oneTimeChecked = true;
+            }
+        }
+
+        // update clinet config and cf ip list
+        private bool remoteUpdateClientConfig()
+        {
+            addTextLog("Updating client config from remote...");
+            bool result = configManager.getClientConfig().remoteUpdateClientConfig();
+            if (result)
+            {
+                addTextLog("Client config and Cloudflare subnets
