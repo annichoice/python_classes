@@ -489,4 +489,28 @@ namespace WinCFScan
             bool result = configManager.getClientConfig().remoteUpdateClientConfig();
             if (result)
             {
-                addTextLog("Client config and Cloudflare subnets
+                addTextLog("Client config and Cloudflare subnets are successfully updated.");
+                if (!configManager.getClientConfig().isConfigValid())
+                {
+                    addTextLog("'client config' data is not valid!");
+                }
+
+                // reload cf subnet list
+                scanEngine.loadCFIPList();
+            }
+            else
+            {
+                addTextLog("Failed to update client config. check your internet connection or maybe client config url is blocked by your ISP!");
+            }
+
+            return result;
+        }
+
+        // check for update
+        private void checkForUpdate(bool logNoNewVersion = false)
+        {
+            Task.Factory.StartNew(() => { appUpdateChecker.check(); })
+            .ContinueWith(done =>
+            {
+                if (appUpdateChecker.isFoundNewVersion())
+     
