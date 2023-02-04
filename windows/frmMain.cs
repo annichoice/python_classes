@@ -534,4 +534,37 @@ namespace WinCFScan
             scanEngine.concurrentProcess = con;
         }
 
-        private int getConc
+        private int getConcurentProcess()
+        {
+            int val = 0;
+            bool isInteger = int.TryParse(comboConcurrent.Text, out val);
+            if (!isInteger || val < 1 || val > 128)
+            {
+                val = 4;
+            }
+
+            return val;
+        }
+
+        private void btnCopyFastestIP_Click(object sender, EventArgs e)
+        {
+            if (scanEngine.progressInfo.scanResults?.fastestIP != null)
+            {
+                setClipboard(scanEngine.progressInfo.scanResults.fastestIP.ip);
+            }
+        }
+
+        private bool setClipboard(string text)
+        {
+            try
+            {
+                Clipboard.SetText(text);
+                return true;
+            }
+            catch (Exception ex) { }
+
+            return false;
+        }
+
+        // results actions
+        private void bt
