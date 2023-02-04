@@ -513,4 +513,25 @@ namespace WinCFScan
             .ContinueWith(done =>
             {
                 if (appUpdateChecker.isFoundNewVersion())
-     
+                {
+                    addTextLog($"There is a new version available ({appUpdateChecker.getUpdateVersion()}) Download it from here: {ourGitHubUrl}/releases");
+                }
+                else if (appUpdateChecker.updateCheckResult == UpdateCheckResult.HasError)
+                {
+                    addTextLog("Something went wrong while checking for update!");
+                }
+                else if (logNoNewVersion)
+                {
+                    addTextLog("Everything is up to date.");
+                }
+            });
+        }
+
+        private void comboConcurrent_TextChanged(object sender, EventArgs e)
+        {
+            var con = getConcurentProcess();
+            comboConcurrent.Text = con.ToString();
+            scanEngine.concurrentProcess = con;
+        }
+
+        private int getConc
