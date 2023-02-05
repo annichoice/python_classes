@@ -567,4 +567,30 @@ namespace WinCFScan
         }
 
         // results actions
-        private void bt
+        private void btnResultsActions_MouseClick(object sender, MouseEventArgs e)
+        {
+            mnuResultsActions.Show(this, btnResultsActions.Left + 5, splitContainer1.Top + btnResultsActions.Top + btnResultsActions.Height + 25);
+        }
+
+        private void deleteResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteResultItem();
+        }
+
+        private void exportResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportResults();
+        }
+
+        private void importResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            importResults();
+        }
+
+        private void importResults()
+        {
+            if (isScanRunning())
+                return;
+
+            openFileDialog1.Title = "Import IP results";
+            openFileDialog1.Filter 
