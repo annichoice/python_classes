@@ -619,4 +619,25 @@ namespace WinCFScan
                 {
                     try
                     {
-                        Fil
+                        File.Delete(filename);
+                        addTextLog($"'{filename}' has been deleted.");
+                        loadLastResultsComboList();
+                        listResults.Items.Clear();
+                        currentScanResults = new();
+                        lblPrevListTotalIPs.Text = "0 IPs";
+
+                    }
+                    catch (Exception)
+                    {
+                        addTextLog($"Could not delete '{filename}'");
+                    }
+                }
+            }
+        }
+
+        // user selected ip list of cloudflare
+        private string[] getCheckedCFIPList(bool getIPCount = false)
+        {
+            return listCFIPList.CheckedItems.Cast<ListViewItem>()
+                                 .Select(item =>
+                    
