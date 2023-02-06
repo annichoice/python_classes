@@ -593,4 +593,30 @@ namespace WinCFScan
                 return;
 
             openFileDialog1.Title = "Import IP results";
-            openFileDialog1.Filter 
+            openFileDialog1.Filter = "";
+
+            var result = openFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                fillResultsListView(openFileDialog1.FileName, true);
+                tabControl1.SelectedIndex = 1;
+            };
+
+        }
+
+        private void deleteResultItem()
+        {
+            if (isScanRunning())
+                return;
+
+            string? filename = getSelectedScanResultFilename();
+            if (filename != null)
+            {
+                var result = MessageBox.Show($"Are you sure you want to delete {filename}?",
+                            "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Fil
