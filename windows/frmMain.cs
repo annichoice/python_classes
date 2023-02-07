@@ -683,4 +683,32 @@ namespace WinCFScan
             foreach (var ipRange in scanEngine.ipListLoader.validIPRanges)
             {
                 var lvwItem = listCFIPList.Items.Add(new ListViewItem(new string[] { ipRange.rangeText, $"{ipRange.totalIps:n0}" }));
-       
+                lvwItem.Checked = true;
+            }
+
+            listCFIPList.EndUpdate();
+            isUpdatinglistCFIP = false;
+            addTextLog($"Total {scanEngine.ipListLoader.totalIPs:n0} Cloudflare IPs are ready to be scanned.");
+            updateCFIPListStatusText();
+        }
+
+
+
+        private ScanSpeed getTargetSpeed()
+        {
+            int speed = int.Parse(comboTargetSpeed.SelectedItem.ToString().Replace(" KB/s", ""));
+            return new ScanSpeed(speed);
+        }
+
+        private string? getSelectedIPAddress()
+        {
+            try
+            {
+                return listResults.SelectedItems[0].SubItems[1].Text;
+            }
+            catch (Exception ex) { }
+
+            return null;
+        }
+
+        private void listResults_MouseDoubleClick(object sender, 
