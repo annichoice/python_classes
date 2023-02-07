@@ -662,4 +662,25 @@ namespace WinCFScan
         // add cloudflare ip ranges to list view
         private void loadCFIPListView()
         {
-            if (!scanEngine.ipLis
+            if (!scanEngine.ipListLoader.isIPListValid())
+            {
+                addTextLog("Cloudflare IP range file is not valid!");
+                lblCFIPListStatus.Text = "Failed to load IP ranges.";
+                lblCFIPListStatus.ForeColor = Color.Red;
+                return;
+            }
+            else
+            {
+                lblCFIPListStatus.ForeColor = Color.Black;
+            }
+
+            listCFIPList.Items.Clear();
+            listCFIPList.BeginUpdate();
+            isUpdatinglistCFIP = true;
+            uint totalIPs = 0;
+            addTextLog($"Loading Cloudflare IPs ranges...");
+
+            foreach (var ipRange in scanEngine.ipListLoader.validIPRanges)
+            {
+                var lvwItem = listCFIPList.Items.Add(new ListViewItem(new string[] { ipRange.rangeText, $"{ipRange.totalIps:n0}" }));
+       
