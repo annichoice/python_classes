@@ -640,4 +640,26 @@ namespace WinCFScan
         {
             return listCFIPList.CheckedItems.Cast<ListViewItem>()
                                  .Select(item =>
-                    
+                                 {
+                                     return getIPCount ? item.SubItems[1].Text : item.SubItems[0].Text;
+                                 })
+                                 .ToArray<string>();
+
+
+        }
+
+        // list view right click
+        private void listResults_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                mnuListViewCopyIP.Text = "Copy IP Address " + getSelectedIPAddress();
+                mnuTestThisIP.Text = "Test this IP Address " + getSelectedIPAddress();
+                mnuListView.Show(listResults, e.X, e.Y);
+            }
+        }
+
+        // add cloudflare ip ranges to list view
+        private void loadCFIPListView()
+        {
+            if (!scanEngine.ipLis
