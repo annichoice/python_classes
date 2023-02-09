@@ -711,4 +711,29 @@ namespace WinCFScan
             return null;
         }
 
-        private void listResults_MouseDoubleClick(object sender, 
+        private void listResults_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var IPAddress = getSelectedIPAddress();
+            if (IPAddress != null)
+            {
+                testSingleIPAddress(IPAddress);
+            }
+        }
+
+        private void updateCFIPListStatusText()
+        {
+            try
+            {
+                var ipRangeCounts = getCheckedCFIPList(true);
+                uint sum = 0;
+                foreach (var item in ipRangeCounts)
+                {
+                    sum += uint.Parse(item.Replace(",", ""));
+                }
+                lblCFIPListStatus.Text = $"{ipRangeCounts.Length} Cloudflare IP ranges are selected, contains {sum:n0} IPs";
+            }
+            catch (Exception)
+            { }
+        }
+
+        private void btnSelectAllIPRanges_Click(object sender, Ev
