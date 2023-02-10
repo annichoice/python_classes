@@ -736,4 +736,29 @@ namespace WinCFScan
             { }
         }
 
-        private void btnSelectAllIPRanges_Click(object sender, Ev
+        private void btnSelectAllIPRanges_Click(object sender, EventArgs e)
+        {
+            changeCFListViewItemsCheckState(true);
+        }
+
+        private void btnSelectNoneIPRanges_Click(object sender, EventArgs e)
+        {
+            changeCFListViewItemsCheckState(false);
+        }
+
+        private void changeCFListViewItemsCheckState(bool isChecked)
+        {
+            listCFIPList.BeginUpdate();
+            isUpdatinglistCFIP = true;
+            foreach (ListViewItem item in listCFIPList.Items)
+            {
+                item.Checked = isChecked;
+            }
+            listCFIPList.EndUpdate();
+            isUpdatinglistCFIP = false;
+            updateCFIPListStatusText();
+        }
+
+        private void listCFIPList_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (!isUpdatin
