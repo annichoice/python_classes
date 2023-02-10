@@ -816,4 +816,25 @@ namespace WinCFScan
         // sort Results listview
         private void listResults_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-       
+            sortListView(listResults, listResultsColumnSorter, e.Column);
+        }
+
+        // sort listview
+        private void sortListView(ListView listView, ListViewColumnSorter columnSorter, int columnNumber)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (columnNumber == columnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (columnSorter.Order == SortOrder.Ascending)
+                {
+                    columnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    columnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column
