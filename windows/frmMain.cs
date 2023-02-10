@@ -788,4 +788,32 @@ namespace WinCFScan
                 do
                 {
                     System.Windows.Forms.Application.DoEvents();
-                
+                    Thread.Sleep(100);
+                } while (isScanRunning() && sw.Elapsed.TotalSeconds < 7);
+
+            }
+        }
+
+        private void openUrl(string url)
+        {
+            try
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo(url) { UseShellExecute = true };
+                Process.Start(sInfo);
+            }
+            catch (Exception)
+            {
+                addTextLog($"Open this url in your browser: {url}");
+            }
+        }
+
+        // sort CF Ranges listview
+        private void listCFIPList_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            sortListView(listCFIPList, listCFIPsColumnSorter, e.Column);
+        }
+
+        // sort Results listview
+        private void listResults_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+       
