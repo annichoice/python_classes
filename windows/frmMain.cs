@@ -761,4 +761,31 @@ namespace WinCFScan
 
         private void listCFIPList_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (!isUpdatin
+            if (!isUpdatinglistCFIP)
+                updateCFIPListStatusText();
+        }
+
+        private void showCanNotContinueMessage()
+        {
+            MessageBox.Show("App configuration file is not valid. We can not continue.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            addTextLog("Exiting...");
+            waitUntilScannerStoped();
+        }
+
+        private void waitUntilScannerStoped()
+        {
+            if (isScanRunning())
+            {
+                // stop scan
+                var sw = new Stopwatch();
+                sw.Start();
+                scanEngine.stop();
+                do
+                {
+                    System.Windows.Forms.Application.DoEvents();
+                
