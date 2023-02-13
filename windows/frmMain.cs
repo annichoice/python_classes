@@ -837,4 +837,23 @@ namespace WinCFScan
             }
             else
             {
-                // Set the column
+                // Set the column number that is to be sorted; default to ascending.
+                columnSorter.SortColumn = columnNumber;
+                columnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            listView.Sort();
+        }
+
+        // test user provided ip
+        private void scanASingleIPAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string input = Tools.ShowDialog("Enter a valid IP address:", "Test Sigle IP Address");
+
+            if (input == "" || input == null) { return; }
+
+            if (!IPAddressExtensions.isValidIPAddress(input))
+            {
+                // msg
+                MessageBox.Show("Invalid IP address is entered!", "Error", MessageBoxButtons.OK, MessageBoxIcon.
