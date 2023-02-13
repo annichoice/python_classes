@@ -856,4 +856,32 @@ namespace WinCFScan
             if (!IPAddressExtensions.isValidIPAddress(input))
             {
                 // msg
-                MessageBox.Show("Invalid IP address is entered!", "Error", MessageBoxButtons.OK, MessageBoxIcon.
+                MessageBox.Show("Invalid IP address is entered!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            testAvgSingleIP(input, 1, getTargetSpeed(), getSelectedV2rayConfig(), getDownloadTimeout());
+        }
+
+        private void mnuListViewCopyIP_Click(object sender, EventArgs e)
+        {
+            var IPAddr = getSelectedIPAddress();
+            if (IPAddr != null)
+            {
+                try
+                {
+                    Clipboard.SetText(IPAddr);
+                }
+                catch (Exception ex)
+                {
+                    addTextLog("Could not copy to clipboard!");
+                }
+            }
+        }
+
+        private void btnLoadIPRanges_Click(object sender, EventArgs e)
+        {
+            loadCustomCPIPList();
+        }
+
+        private void loadCustomIPRangesToolSt
