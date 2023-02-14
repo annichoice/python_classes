@@ -909,4 +909,27 @@ namespace WinCFScan
                 }
                 else
                 {
-                    addTextLog($"Could not find any valid IP ranges in '
+                    addTextLog($"Could not find any valid IP ranges in '{openFileDialog1.FileName}'");
+                }
+            };
+
+        }
+
+        private void exportScanResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportResults();
+        }
+
+        // export results
+        private void exportResults()
+        {
+            var resultIPs = isScanRunning() ? scanEngine.progressInfo.scanResults.workingIPs : currentScanResults;
+            if (resultIPs.Count == 0)
+            {
+                addTextLog("Current results list is empty!");
+                return;
+            }
+
+            saveFileDialog1.Title = $"Saving {resultIPs.Count} IP addressses";
+            saveFileDialog1.FileName = $"scan-results-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.txt";
+            saveFileDialog1.Filter = "txt f
