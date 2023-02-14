@@ -884,4 +884,29 @@ namespace WinCFScan
             loadCustomCPIPList();
         }
 
-        private void loadCustomIPRangesToolSt
+        private void loadCustomIPRangesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadCustomCPIPList();
+        }
+
+        // load custom ip ranges from disk by user input
+        private void loadCustomCPIPList()
+        {
+            if (isScanRunning())
+                return;
+
+            openFileDialog1.Title = "Load custom cloudflare IP ranges";
+            openFileDialog1.Filter = "";
+
+            var result = openFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                if (scanEngine.loadCFIPList(openFileDialog1.FileName))
+                {
+                    loadCFIPListView();
+                    tabControl1.SelectedIndex = 0;
+                }
+                else
+                {
+                    addTextLog($"Could not find any valid IP ranges in '
