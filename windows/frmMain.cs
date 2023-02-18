@@ -979,4 +979,25 @@ namespace WinCFScan
         private void comboConfigs_SelectedIndexChanged(object sender, EventArgs e)
         {
             CustomConfigInfo customConfigInfo = getSelectedV2rayConfig();
-            if (!c
+            if (!customConfigInfo.isDefaultConfig())
+            {
+                addTextLog($"Custom v2ray config is selected: '{customConfigInfo.fileName}'");
+            }
+        }
+
+        private void addCustomV2rayConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isScanRunning())
+                return;
+
+            openFileDialog1.Title = "Add custom v2ray config file";
+            openFileDialog1.Filter = "Json files (*.json)|*.json";
+            var result = openFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                bool isDone = CustomConfigs.addNewConfigFile(openFileDialog1.FileName, out string errorMessage);
+                if (isDone)
+                {
+                    configManager.customConfigs.loadCustomConfigs();
+                    loadCustomConfigs
