@@ -953,4 +953,30 @@ namespace WinCFScan
         private bool isScanRunning()
         {
             return scanEngine.progressInfo.isScanRunning;
- 
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void importScanResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            importResults();
+        }
+
+        private void btnStart_ButtonClick(object sender, EventArgs e)
+        {
+            startStopScan(false);
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addTextLog("Checking for new version...");
+            checkForUpdate(true);
+        }
+
+        private void comboConfigs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CustomConfigInfo customConfigInfo = getSelectedV2rayConfig();
+            if (!c
