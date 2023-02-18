@@ -932,4 +932,25 @@ namespace WinCFScan
 
             saveFileDialog1.Title = $"Saving {resultIPs.Count} IP addressses";
             saveFileDialog1.FileName = $"scan-results-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.txt";
-            saveFileDialog1.Filter = "txt f
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            var result = saveFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var scanResults = new ScanResults(resultIPs, saveFileDialog1.FileName);
+                bool isSaved = scanResults.savePlain();
+                if (isSaved)
+                {
+                    addTextLog($"{scanResults.totalFoundWorkingIPs} IPs exported into '{saveFileDialog1.FileName}'");
+                }
+                else
+                {
+                    addTextLog($"Could save into '{saveFileDialog1.FileName}'");
+                }
+            };
+        }
+
+        private bool isScanRunning()
+        {
+            return scanEngine.progressInfo.isScanRunning;
+ 
