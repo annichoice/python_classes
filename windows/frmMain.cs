@@ -1066,4 +1066,25 @@ namespace WinCFScan
         private void btnSkipCurRange_ButtonClick(object sender, EventArgs e)
         {
             if (scanEngine.progressInfo.isScanRunning)
-                scanEngine.skip
+                scanEngine.skipCurrentIPRange();
+
+        }
+
+        private void mnuSkipAfterFoundIPs_Click(object sender, EventArgs e)
+        {
+            setAutoSkip(mnuSkipAfterFoundIPs.Checked, "Auto skip current IP range after founding 5 working IPs is");
+            scanEngine.setSkipAfterFoundIPs(mnuSkipAfterFoundIPs.Checked);
+            setAutoSkipStatus();
+        }
+
+        private void mnuSkipAfterAWhile_Click(object sender, EventArgs e)
+        {
+            setAutoSkip(mnuSkipAfterAWhile.Checked, "Auto skip current IP range after 3 minutes of scanning is");
+            scanEngine.setSkipAfterAWhile(mnuSkipAfterAWhile.Checked);
+            setAutoSkipStatus();
+        }
+
+        private void mnuSkipAfter10Percent_Click(object sender, EventArgs e)
+        {
+            skipAfterPercent(mnuSkipAfter10Percent);
+    
