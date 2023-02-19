@@ -1000,4 +1000,26 @@ namespace WinCFScan
                 if (isDone)
                 {
                     configManager.customConfigs.loadCustomConfigs();
-                    loadCustomConfigs
+                    loadCustomConfigsComboList(Path.GetFileName(openFileDialog1.FileName));
+                    addTextLog("New custom v2ray config is added.");
+                }
+                else
+                {
+                    addTextLog($"Adding custom config is failed: {errorMessage}");
+                }
+            };
+        }
+
+        // Monitoring exceptions:
+        private void btnFrontingErrors_ButtonClick(object sender, EventArgs e)
+        {
+            ExceptionMonitor frontingExceptions = scanEngine.progressInfo.frontingExceptions;
+            if (frontingExceptions.hasException())
+            {
+                addTextLog(frontingExceptions.getTopExceptions());
+            }
+        }
+
+        private void btnDownloadErrors_ButtonClick(object sender, EventArgs e)
+        {
+      
