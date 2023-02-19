@@ -1043,4 +1043,27 @@ namespace WinCFScan
 
         private void mnuCopyFrontingErrors_Click(object sender, EventArgs e)
         {
-            if (setClipboard(scanEngine.progressInfo.frontingExceptio
+            if (setClipboard(scanEngine.progressInfo.frontingExceptions.getTopExceptions(7)))
+            {
+                addTextLog("Errors coppied to the clipboard.");
+            }
+            else
+            {
+                addTextLog("Could not copy to the clipboard!");
+            }
+        }
+
+        private void comboDownloadTimeout_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int timeout = getDownloadTimeout();
+
+            if (timeout > 2)
+            {
+                addTextLog($"Download timeout is set to {timeout} seconds. Only use higher timeout values if your v2ray server's responce is slow.");
+            }
+        }
+
+        private void btnSkipCurRange_ButtonClick(object sender, EventArgs e)
+        {
+            if (scanEngine.progressInfo.isScanRunning)
+                scanEngine.skip
