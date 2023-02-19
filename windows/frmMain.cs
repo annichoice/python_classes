@@ -1022,4 +1022,25 @@ namespace WinCFScan
 
         private void btnDownloadErrors_ButtonClick(object sender, EventArgs e)
         {
-      
+            ExceptionMonitor downloadExceptions = scanEngine.progressInfo.downloadExceptions;
+            if (downloadExceptions.hasException())
+            {
+                addTextLog(downloadExceptions.getTopExceptions());
+            }
+        }
+
+        private void mnuCopyDownloadErrors_Click(object sender, EventArgs e)
+        {
+            if (setClipboard(scanEngine.progressInfo.downloadExceptions.getTopExceptions(7)))
+            {
+                addTextLog("Errors coppied to the clipboard.");
+            }
+            else
+            {
+                addTextLog("Could not copy to the clipboard!");
+            }
+        }
+
+        private void mnuCopyFrontingErrors_Click(object sender, EventArgs e)
+        {
+            if (setClipboard(scanEngine.progressInfo.frontingExceptio
