@@ -1087,4 +1087,28 @@ namespace WinCFScan
         private void mnuSkipAfter10Percent_Click(object sender, EventArgs e)
         {
             skipAfterPercent(mnuSkipAfter10Percent);
-    
+        }
+
+        private void mnuSkipAfter30Percent_Click(object sender, EventArgs e)
+        {
+            skipAfterPercent(mnuSkipAfter30Percent);
+        }
+
+        private void mnuSkipAfter50Percent_Click(object sender, EventArgs e)
+        {
+            skipAfterPercent(mnuSkipAfter50Percent);
+        }
+
+        private void setAutoSkipStatus()
+        {
+            lblAutoSkipStatus.Visible = mnuSkipAfter10Percent.Checked || mnuSkipAfter30Percent.Checked || mnuSkipAfter50Percent.Checked ||
+                mnuSkipAfterAWhile.Checked || mnuSkipAfterFoundIPs.Checked;
+
+            seperatorAutoSkip.Visible = lblAutoSkipStatus.Visible;
+        }
+
+        private void skipAfterPercent(ToolStripMenuItem menu)
+        {
+            // note: menu must have Tag
+            if (menu.Checked)
+                selectM
