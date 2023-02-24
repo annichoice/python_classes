@@ -1163,4 +1163,31 @@ namespace WinCFScan
             return -1;
         }
 
-        private void setAutoSkip(bool enabled
+        private void setAutoSkip(bool enabled, string message)
+        {
+            string enabledStatus = enabled ? "enabled" : "disbaled";
+            addTextLog($"{message} {enabledStatus}.");
+
+        }
+
+        private void mnuHelpCustomConfig_Click(object sender, EventArgs e)
+        {
+            openUrl(helpCustomConfigUrl);
+        }
+
+        private void mnuHelpOurGitHub_Click(object sender, EventArgs e)
+        {
+            openUrl(ourGitHubUrl);
+        }
+
+        private void linkBuyMeCoffee_Click(object sender, EventArgs e)
+        {
+            openUrl(buyMeCoffeeUrl);
+        }
+
+        private void linkGithub_Click(object sender, EventArgs e)
+        {
+            openUrl(ourGitHubUrl);
+        }
+
+        private void updateClientConfigCloudflareSubnetsToolStripMenuItem_Click(object sender, EventArgs e)
