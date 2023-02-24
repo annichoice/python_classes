@@ -1111,4 +1111,28 @@ namespace WinCFScan
         {
             // note: menu must have Tag
             if (menu.Checked)
-                selectM
+                selectMinimumPercentOfAutoSkipMenu(menu.Tag.ToString());
+
+            int minPercent = getMinimumPercentOfAutoSkip();
+
+            if (minPercent == -1)
+            {
+                setAutoSkip(false, $"Auto skip current IP range after specific percentage is");
+            }
+            else
+            {
+                setAutoSkip(true, $"Auto skip current IP range after {minPercent}% is");
+            }
+
+            scanEngine.setSkipAfterScanPercent(minPercent != -1, minPercent);
+            setAutoSkipStatus();
+
+        }
+
+        private void selectMinimumPercentOfAutoSkipMenu(string selectedMenu)
+        {
+            switch (selectedMenu)
+            {
+                case "10":
+                    mnuSkipAfter30Percent.Checked = mnuSkipAfter50Percent.Checked = false;
+              
