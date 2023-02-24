@@ -1135,4 +1135,32 @@ namespace WinCFScan
             {
                 case "10":
                     mnuSkipAfter30Percent.Checked = mnuSkipAfter50Percent.Checked = false;
-              
+                    break;
+                case "30":
+                    mnuSkipAfter10Percent.Checked = mnuSkipAfter50Percent.Checked = false;
+                    break;
+                case "50":
+                    mnuSkipAfter10Percent.Checked = mnuSkipAfter30Percent.Checked = false;
+                    break;
+            }
+        }
+
+        private int getMinimumPercentOfAutoSkip()
+        {
+            if (mnuSkipAfter10Percent.Checked)
+            {
+                return 10;
+            }
+            else if (mnuSkipAfter30Percent.Checked)
+            {
+                return 30;
+            }
+            else if (mnuSkipAfter50Percent.Checked)
+            {
+                return 50;
+            }
+
+            return -1;
+        }
+
+        private void setAutoSkip(bool enabled
