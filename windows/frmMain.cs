@@ -1191,3 +1191,25 @@ namespace WinCFScan
         }
 
         private void updateClientConfigCloudflareSubnetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (configManager.getClientConfig() != null)
+            {
+                if (remoteUpdateClientConfig())
+                {
+                    // reload cf ip ranges
+                    loadCFIPListView();
+                };
+            }
+            else
+                addTextLog("ClientConfig is null!");
+        }
+
+
+        private void testAvgSingleIP(string IPAddress, int rounds, ScanSpeed targetSpeed, CustomConfigInfo v2rayConfig, int downloadTimeout)
+        {
+
+            addTextLog($"Testing {IPAddress} for {rounds} rounds...");
+
+            int totalSuccessCount = 0, totalFailedCount = 0;
+            long bestDLDuration = 99999, bestFrontingDuration = 99999, totalDLDuration = 0, totalFrontingDuration = 0;
+            long averageDLDuration = 0, averageFrontingDuration = 0
