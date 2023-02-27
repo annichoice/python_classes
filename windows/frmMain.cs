@@ -1234,3 +1234,23 @@ namespace WinCFScan
                 else
                 {
                     totalFailedCount++;
+                }
+
+                if (stopAvgTetingIsRequested)
+                    break;
+            }
+
+            if (totalSuccessCount > 0)
+            {
+                averageDLDuration = totalDLDuration / totalSuccessCount;
+                averageFrontingDuration = totalFrontingDuration / totalSuccessCount;
+
+                string results = $"{IPAddress} => {totalSuccessCount}/{rounds} was successfull." + Environment.NewLine +
+                    $"\tDownload: Best {bestDLDuration:n0} ms, Average: {averageDLDuration:n0} ms" + Environment.NewLine +
+                    $"\tFronting: Best {bestFrontingDuration:n0} ms, Average: {averageFrontingDuration:n0} ms" + Environment.NewLine;
+
+                addTextLog(results);
+            }
+            else
+            {
+                addTextLog($"{IPAdd
