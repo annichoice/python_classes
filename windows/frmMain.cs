@@ -1212,4 +1212,25 @@ namespace WinCFScan
 
             int totalSuccessCount = 0, totalFailedCount = 0;
             long bestDLDuration = 99999, bestFrontingDuration = 99999, totalDLDuration = 0, totalFrontingDuration = 0;
-            long averageDLDuration = 0, averageFrontingDuration = 0
+            long averageDLDuration = 0, averageFrontingDuration = 0;
+
+            for (int i = 1; i <= rounds; i++)
+            {
+                // test
+                var checker = new CheckIPWorking(IPAddress, targetSpeed, v2rayConfig, downloadTimeout);
+                var success = checker.check();
+
+                long DLDuration = checker.downloadDuration;
+                long FrontingDuration = checker.frontingDuration;
+
+                if (success)
+                {
+                    totalSuccessCount++;
+                    bestDLDuration = Math.Min(DLDuration, bestDLDuration);
+                    bestFrontingDuration = Math.Min(FrontingDuration, bestFrontingDuration);
+                    totalDLDuration += DLDuration;
+                    totalFrontingDuration += FrontingDuration;
+                }
+                else
+                {
+                    totalFailedCount++;
