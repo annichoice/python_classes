@@ -1298,4 +1298,31 @@ namespace WinCFScan
             addTextLog($"Start testing {selectedIPs.Length} IPs for {rounds} rounds..." + Environment.NewLine +
                 $"\tTest spec: download size: {speed.getTargetFileSizeInt(timeout) / 1000} KB in {timeout} seconds." + Environment.NewLine);
 
-            btnStopAvgTest.Visibl
+            btnStopAvgTest.Visible = true;
+            btnStopAvgTest.Enabled = true;
+
+            Task.Factory.StartNew(() =>
+            {
+                for (int i = 0; i < selectedIPs.Length; i++)
+                {
+                    var ip = selectedIPs[i];
+                    testAvgSingleIP(ip, rounds, speed, conf, timeout);
+
+                    // stop requested
+                    if (stopAvgTetingIsRequested)
+                        break;
+                }
+            })
+            .ContinueWith(done =>
+            {
+                if (stopAvgTetingIsRequested)
+                    addTextLog("Test stopped by user.");
+                else
+                    addTextLog("Test finished.");
+                isManualTesting = false;
+                stopAvgTetingIsRequested = false;
+            });
+
+        }
+
+        private void mnuTesIP2Times_Click(object sender, EventArgs
