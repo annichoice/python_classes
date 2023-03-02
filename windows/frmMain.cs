@@ -1253,4 +1253,30 @@ namespace WinCFScan
             }
             else
             {
-                addTextLog($"{IPAdd
+                addTextLog($"{IPAddress} is NOT working.");
+            }
+
+        }
+
+        private void testSingleIPAddress(string IPAddress)
+        {
+            addTextLog($"Testing {IPAddress} ...");
+
+            var checker = new CheckIPWorking(IPAddress, getTargetSpeed(), getSelectedV2rayConfig(), getDownloadTimeout());
+            var success = checker.check();
+
+            if (success)
+            {
+                addTextLog($"{IPAddress} is working. Delay: {checker.downloadDuration:n0} ms.");
+            }
+            else
+            {
+                addTextLog($"{IPAddress} is NOT working.");
+            }
+        }
+
+        private void testSelectedIPAddresses(int rounds = 1)
+        {
+            if (scanEngine.progressInfo.isScanRunning || isManualTesting)
+            {
+                addTextLog($"Can not t
