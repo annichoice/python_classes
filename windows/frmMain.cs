@@ -1279,4 +1279,23 @@ namespace WinCFScan
         {
             if (scanEngine.progressInfo.isScanRunning || isManualTesting)
             {
-                addTextLog($"Can not t
+                addTextLog($"Can not test while app is scanning.");
+                return;
+            }
+
+            isManualTesting = true;
+            stopAvgTetingIsRequested = false;
+
+            var selectedIPs = listResults.SelectedItems.Cast<ListViewItem>()
+                                 .Select(item => item.SubItems[1].Text)
+                                 .ToArray<string>(); ;
+
+
+            var speed = getTargetSpeed();
+            var conf = getSelectedV2rayConfig();
+            var timeout = getDownloadTimeout();
+
+            addTextLog($"Start testing {selectedIPs.Length} IPs for {rounds} rounds..." + Environment.NewLine +
+                $"\tTest spec: download size: {speed.getTargetFileSizeInt(timeout) / 1000} KB in {timeout} seconds." + Environment.NewLine);
+
+            btnStopAvgTest.Visibl
