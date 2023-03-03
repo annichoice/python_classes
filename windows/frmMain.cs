@@ -1357,4 +1357,9 @@ namespace WinCFScan
 
         private void btnStopAvgTest_Click(object sender, EventArgs e)
         {
-            stopAvgTetingIsRequested = true
+            stopAvgTetingIsRequested = true;
+            btnStopAvgTest.Enabled = false;
+        }
+    }
+
+}
