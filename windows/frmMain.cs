@@ -1325,4 +1325,36 @@ namespace WinCFScan
 
         }
 
-        private void mnuTesIP2Times_Click(object sender, EventArgs
+        private void mnuTesIP2Times_Click(object sender, EventArgs e)
+        {
+            testSelectedIPAddresses(2);
+        }
+
+        private void mnuTesIP3Times_Click(object sender, EventArgs e)
+        {
+            testSelectedIPAddresses(3);
+        }
+
+        private void mnuTesIP5Times_Click(object sender, EventArgs e)
+        {
+            testSelectedIPAddresses(5);
+        }
+
+        private void btnResultsActions_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void testThisIPAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ip = getSelectedIPAddress();
+
+            if (ip != null)
+            {
+                testSingleIPAddress(ip);
+            }
+        }
+
+        private void btnStopAvgTest_Click(object sender, EventArgs e)
+        {
+            stopAvgTetingIsRequested = true
